@@ -103,7 +103,8 @@ const CoinPrice = () => {
       id: "ripple",
       symbol: "xrp",
       name: "Ripple",
-      image: "https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1605778731",
+      image:
+        "https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1605778731",
       current_price: 0.75,
       market_cap: 35000000000,
       market_cap_rank: 7,
@@ -131,7 +132,8 @@ const CoinPrice = () => {
       id: "solana",
       symbol: "sol",
       name: "Solana",
-      image: "https://assets.coingecko.com/coins/images/4128/large/coinmarketcap-solana-200.png?1616489452",
+      image:
+        "https://assets.coingecko.com/coins/images/4128/large/coinmarketcap-solana-200.png?1616489452",
       current_price: 100.25,
       market_cap: 30000000000,
       market_cap_rank: 6,
@@ -159,7 +161,8 @@ const CoinPrice = () => {
       id: "terra-luna",
       symbol: "luna",
       name: "Terra",
-      image: "https://assets.coingecko.com/coins/images/8284/large/luna1557227471663.png?1567147072",
+      image:
+        "https://assets.coingecko.com/coins/images/8284/large/luna1557227471663.png?1567147072",
       current_price: 50.75,
       market_cap: 15000000000,
       market_cap_rank: 11,
@@ -187,13 +190,14 @@ const CoinPrice = () => {
       id: "cardano",
       symbol: "ada",
       name: "Cardano",
-      image: "https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860",
-      current_price: 1.50,
+      image:
+        "https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860",
+      current_price: 1.5,
       market_cap: 50000000000,
       market_cap_rank: 5,
       fully_diluted_valuation: null,
       total_volume: 3500000000,
-      high_24h: 1.60,
+      high_24h: 1.6,
       low_24h: 1.45,
       price_change_24h: 0.05,
       price_change_percentage_24h: 3.45,
@@ -202,7 +206,7 @@ const CoinPrice = () => {
       circulating_supply: 33000000000,
       total_supply: 45000000000,
       max_supply: 45000000000,
-      ath: 3.10,
+      ath: 3.1,
       ath_change_percentage: -51.61,
       ath_date: "2021-05-16T14:56:32.634Z",
       atl: 0.0234,
@@ -211,7 +215,6 @@ const CoinPrice = () => {
       roi: null,
       last_updated: "2024-04-07T16:49:31.736Z"
     }
-  
   ];
 
   const [coinListData, setCoinListData] = useState();
@@ -279,7 +282,18 @@ const CoinPrice = () => {
   // }, [coinListData]);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      sx={{
+        display:"flex",
+        justifyContent:"center",
+        // padding: "50px",
+        border: "1px solid black",
+        // marginTop: "50px",
+        // width: "80%",
+        
+      }}
+      component={Paper}
+    >
       <Table>
         <TableHead>
           <TableRow>
@@ -296,10 +310,7 @@ const CoinPrice = () => {
           {Object.entries(coinValueDummy).map(([key, value], index) => (
             <TableRow>
               <TableCell>
-                <img
-                  src={value.image}
-                  style={{ width: 50, height: 50 }} 
-                />
+                <img src={value.image} style={{ width: 50, height: 50 }} />
               </TableCell>
               <TableCell>{value.symbol}</TableCell>
               <TableCell>{value.name}</TableCell>

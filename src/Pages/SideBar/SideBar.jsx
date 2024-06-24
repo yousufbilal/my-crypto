@@ -7,18 +7,7 @@ import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import HomeIcon from "@mui/icons-material/Home";
 
-{/* <IconButton
-id="sites"
-icon={
-  <FormatListBulletedIcon
-    style={{ fontSize: "30px", color: "white" }}
-  />
-}
-active={selected === "sites" ? "active" : ""}
-handleIconClick={handleIconClick}
-/> */}
-
-const SideBar = ({selected}) => {
+const SideBar = ({ selected }) => {
   return (
     <Box
       display="flex"
@@ -34,9 +23,16 @@ const SideBar = ({selected}) => {
         backgroundColor: "lightblue"
       }}
     >
-      <HomeIcon active={selected === "home"} />
-      <EqualizerIcon active={selected==="about"} />
+      <Link to={"/"}>
+        <HomeIcon active={selected === "home"} />
+      </Link>
+
+      <Link to={"/about"}>
+        <EqualizerIcon active={selected === "about"} />
+      </Link>
+
       <CurrencyBitcoinIcon />
+
       <DashboardIcon />
       <ShowChartIcon />
     </Box>

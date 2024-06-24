@@ -1,17 +1,24 @@
 import React from "react";
-// import { Route, Routes } from "react-router-dom";
-// import { Home } from "./Pages/Home";
-// import { About } from "./Pages/About";
-// import Show from "./Pages/Show";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./Pages/HomePage/Home";
+import { About } from "./Pages/About/About";
 // import Layout from "./Componants/Layout/Layout"; // Ensure the correct path
 // import AdminWrapper from "./Pages/AdminWrapper/AdminWrapper";
 import CoinPrice from "./Componants/CoinPrice/CoinPrice";
+import NFT from "./Componants/NFT/NFT";
 import "./App.css";
+
+
 
 function App() {
   return (
     <div className="main-page">
-      <CoinPrice />
+      {/* <CoinPrice /> */}
+      {/* <NFT/> */}
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>} />
+      </Routes>
     </div>
   );
 }

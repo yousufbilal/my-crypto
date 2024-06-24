@@ -35,12 +35,20 @@
 // return fetch("https://api.coingecko.com/api/v3/simple/price?ids=${CoinPriceAPI}&vs_currencies=${usd}")
 
 
+export const assetPlatFormAPI = () => {
+    return fetch('https://api.coingecko.com/api/v3/asset_platforms')
+        .then(response => response.json())
+        .then(data => data)
+}
+
+
+//Coins List 
 export const CoinList = () => {
     return fetch("https://api.coingecko.com/api/v3/coins/list")
         .then(response => response.json());
 }
 
-
+//Coin Price
 export const CoinPriceAPI = (coinIDs) => {
     return fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIDs}&vs_currencies=usd`)
         .then(response => response.json())
@@ -51,13 +59,22 @@ export const CoinPriceAPI = (coinIDs) => {
 };
 
 
-
-
-
+//Trending Coins
 export const trendingCoins = () => {
     return fetch('https://api.coingecko.com/api/v3/search/trending').
         then(response => response.json()).
         then(data => data)
-
 }
 
+
+//to get NFT DATA 
+export const NFTAPI = (platFormData) => {
+    // return fetch("https://api.coingecko.com/api/v3/nfts/asset_platform_id/contract/contract_address")
+    return fetch(`https://api.coingecko.com/api/v3/nfts/${platFormData}/contract/0xBd3531dA5CF5857e7CfAA92426877b022e612cf8`)
+        .then(response => response.json())
+        .then(data => data)
+}
+
+
+
+//i need global variables that store the platform the id the dates so i can use them in different files 
