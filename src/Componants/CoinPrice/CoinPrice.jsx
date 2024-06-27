@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CoinPriceAPI, CoinList, CoinID } from "../../API/CoinGeckoAPI";
 import { Box, width } from "@mui/system";
 import TableContainer from "@mui/material/TableContainer";
@@ -10,6 +11,14 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 const CoinPrice = () => {
+  const { categories, status, errors } = useSelector((state) => state.coinList);
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(addCoinList());
+  // }, [dispatch]);
+
   let coinValueDummy = [
     {
       id: "bitcoin",
@@ -276,21 +285,12 @@ const CoinPrice = () => {
     console.log(response);
   };
 
-  // useEffect(() => {
-  //   fetchCoinPrice(coinListData)
-  //   // fetchCoinList();
-  // }, [coinListData]);
-
   return (
     <TableContainer
       sx={{
-        display:"flex",
-        justifyContent:"center",
-        // padding: "50px",
-        border: "1px solid black",
-        // marginTop: "50px",
-        // width: "80%",
-        
+        display: "flex",
+        justifyContent: "center",
+        border: "1px solid black"
       }}
       component={Paper}
     >

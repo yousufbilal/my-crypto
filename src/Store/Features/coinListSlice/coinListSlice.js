@@ -5,7 +5,6 @@ export const addCoinList = createAsyncThunk(
     "coinList/addCoinList",
     async () => {
         const response = await axios.get('https://api.coingecko.com/api/v3/asset_platforms');
-        console.log(response)
         return response.data;
     }
 );
@@ -17,11 +16,7 @@ const coinListSlice = createSlice({
         errors: false,
         status: "idle"
     },
-    reducers: {
-        logoutCoinList(state) {
-            state.categories = [];
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(addCoinList.pending, (state) => {
