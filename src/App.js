@@ -2,8 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./Pages/HomePage/Home";
 import { About } from "./Pages/About/About";
-// import Layout from "./Componants/Layout/Layout"; // Ensure the correct path
-// import AdminWrapper from "./Pages/AdminWrapper/AdminWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import coinListSlice from "./Store/Features/coinListSlice/coinListSlice";
 import CoinPrice from "./Componants/CoinPrice/CoinPrice";
 import NFT from "./Componants/NFT/NFT";
 import "./App.css";

@@ -1,3 +1,6 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+
 // export const CoinGeckoTrending = async () => {
 //     try {
 //         const response = await fetch('https://api.coingecko.com/api/v3/search/trending');
@@ -26,7 +29,6 @@
 //     method: 'GET',
 //     headers: { accept: 'application/json' }
 // };
-
 
 
 
@@ -74,6 +76,14 @@ export const NFTAPI = (platFormData) => {
         .then(response => response.json())
         .then(data => data)
 }
+
+
+// export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+//     const response = await fetch("https://api.coingecko.com/api/v3/coins/list");
+//     const data = await response.json();
+//     return data;
+// });
+
 
 
 
