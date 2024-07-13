@@ -6,7 +6,7 @@ import NivoLineChart from "../../Componants/NivoLineChart/NivoLineChart";
 import "./Home.css";
 
 export const Home = () => {
-  console.log(process.env.REACT_APP_BASE_URL)
+  console.log(process.env.REACT_APP_BASE_URL);
   return (
     <Box
       sx={{

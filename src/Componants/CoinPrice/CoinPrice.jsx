@@ -11,6 +11,10 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import EqualizerIcon from "@mui/icons-material/Equalizer";
 import { Box } from "@mui/system";
 import SkeletonLoading from "../Atoms/SkeletonLoading";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -34,19 +38,28 @@ const CoinPrice = () => {
   //   });
   // };
 
-  const sortHanlderAccending = () => {};
   // const sortedPrices = categories.map((item) => item.current_price).sort((a, b) => b - a);
   // console.log(sortedPrices);
-
   //  console.log(categories.coin.sort((a, b) => a - b))
 
-  const RowFunc = (coinName) => {
-    console.log(coinName);
+  const RowFunc = () => {
+    return (
+      <>
+        {/* <Link to={"/about"}>
+          <EqualizerIcon active={selected === "about"} />
+        </Link> */}
+      </>
+    );
   };
 
-  useEffect(() => {
-    sortHanlderAccending();
-  }, [categories]);
+  
+  const navigate = useNavigate();
+
+  const handleReturn = (coin) => {
+    navigate("/about", { state: { coin} });
+  };
+
+  let test = "yousuf";
 
   return (
     <>
@@ -81,8 +94,7 @@ const CoinPrice = () => {
             </TableHead>
             <TableBody>
               {categories.map((coin, index) => (
-                <TableRow onClick={() => RowFunc(coin.name)}
-                 key={index}>
+                <TableRow onClick={()=> handleReturn(coin)}>
                   <TableCell>
                     <img
                       src={coin.image}
@@ -90,16 +102,9 @@ const CoinPrice = () => {
                       style={{ width: 50, height: 50 }}
                     />
                   </TableCell>
+                {/* put all the values in an array and use one table cell */}
                   <TableCell>{coin.symbol}</TableCell>
                   <TableCell>{coin.name}</TableCell>
-
-                  {/* <TableCell>
-                    <span>
-                      <ArrowUpwardIcon />
-                      {sortHanlderAccending(coin.current_price)}
-                    </span>
-                  </TableCell> */}
-
                   <TableCell>{coin.current_price}</TableCell>
                   <TableCell>{coin.market_cap}</TableCell>
                   <TableCell>{coin.price_change_percentage_24h}</TableCell>
@@ -114,4 +119,10 @@ const CoinPrice = () => {
   );
 };
 
+//practise call back functions 
+
 export default CoinPrice;
+
+{
+  /* <Link to={{ pathname: "/about", state: "yousuf" }}> */
+}

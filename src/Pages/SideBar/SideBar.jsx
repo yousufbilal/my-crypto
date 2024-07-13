@@ -34,7 +34,9 @@ const SideBar = ({ selected }) => {
       <CurrencyBitcoinIcon />
 
       <DashboardIcon />
+
       <ShowChartIcon />
+
     </Box>
   );
 };
