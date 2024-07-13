@@ -12,7 +12,6 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const CoinPrice = () => {
   const dispatch = useDispatch();
@@ -31,8 +30,6 @@ const CoinPrice = () => {
   const handleReturn = (coin) => {
     navigate("/about", { state: { coin} });
   };
-
-  let test = "yousuf";
 
   return (
     <>
@@ -75,7 +72,6 @@ const CoinPrice = () => {
                       style={{ width: 50, height: 50 }}
                     />
                   </TableCell>
-                {/* put all the values in an array and use one table cell */}
                   <TableCell>{coin.symbol}</TableCell>
                   <TableCell>{coin.name}</TableCell>
                   <TableCell>{coin.current_price}</TableCell>
