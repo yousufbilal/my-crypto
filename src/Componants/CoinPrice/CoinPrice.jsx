@@ -14,15 +14,9 @@ import Skeleton from "react-loading-skeleton";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import EqualizerIcon from "@mui/icons-material/Equalizer";
-import { Box } from "@mui/system";
-import SkeletonLoading from "../Atoms/SkeletonLoading";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-
 const CoinPrice = () => {
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
-  // const { priceList, status, errors } = useSelector((state) => state.coinPrice);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -31,27 +25,6 @@ const CoinPrice = () => {
   }, [dispatch]);
 
   const isLoading = status === "loading" || !categories.length;
-
-  // const sortHanlderAccending = () => {
-  //   categories.map((item)=>{
-  //     console.log(item.current_price.sort((a,b)=>b-a))
-  //   });
-  // };
-
-  // const sortedPrices = categories.map((item) => item.current_price).sort((a, b) => b - a);
-  // console.log(sortedPrices);
-  //  console.log(categories.coin.sort((a, b) => a - b))
-
-  const RowFunc = () => {
-    return (
-      <>
-        {/* <Link to={"/about"}>
-          <EqualizerIcon active={selected === "about"} />
-        </Link> */}
-      </>
-    );
-  };
-
   
   const navigate = useNavigate();
 
@@ -119,10 +92,4 @@ const CoinPrice = () => {
   );
 };
 
-//practise call back functions 
-
 export default CoinPrice;
-
-{
-  /* <Link to={{ pathname: "/about", state: "yousuf" }}> */
-}
