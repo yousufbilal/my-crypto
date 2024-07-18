@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import SideBar from "../SideBar/SideBar";
-import CoinPrice from "../../Componants/CoinPrice/CoinPrice";
+import CoinDataTable from "../../Componants/CoinDataTable/CoinDataTable";
 import NivoLineChart from "../../Componants/NivoLineChart/NivoLineChart";
 import "./Home.css";
 
@@ -15,7 +15,7 @@ export const Home = () => {
     >
       <SideBar />
       <Box>
-        <CoinPrice />
+        <CoinDataTable />
       </Box>
     </Box>
   );

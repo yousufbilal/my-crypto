@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoinList } from "../../Store/Features/coinListSlice/coinListSlice";
-import { fetchCoinPrice } from "../../Store/Features/coinPriceSlice/coinPriceSlice";
+import { fetchCoinDataTable } from "../../Store/Features/coinDataTableSlice/coinDataTableSlice";
 import { useTranslation } from "react-i18next";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -11,24 +11,33 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
-import { useNavigate } from "react-router-dom";
-
-const CoinPrice = () => {
+import { Link, useNavigate } from "react-router-dom";
+import { fetchCoinIDs } from "../../Store/Features/coinIDSlice/coinIDSlice";
+import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
+const CoinDataTable = () => {
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
-  const { t } = useTranslation();
+  // const { coinHistoricPrice } = useSelector((state) => state.fetchCoinHistoricPrice);
+  // const { IDs } = useSelector((state) => state.coinID);
+  // const { t } = useTranslation();
+
+  // console.log(coinHistoricPrice.prices)
 
   useEffect(() => {
     dispatch(addCoinList());
-    dispatch(fetchCoinPrice());
+    dispatch(fetchCoinIDs());
+    dispatch(fetchCoinDataTable());
+    dispatch(fetchCoinHistoricPrice());
   }, [dispatch]);
 
   const isLoading = status === "loading" || !categories.length;
-  
+
   const navigate = useNavigate();
 
   const handleReturn = (coin) => {
-    navigate("/about", { state: { coin} });
+    navigate("/about", { state: { coin, } });
+    // navigate("/about", { state: { coin, coinHistoricPrice } });
+
   };
 
   return (
@@ -44,7 +53,8 @@ const CoinPrice = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            height: "500px",
+            height: "100vh",
+            width: "100vw",
             overflowY: "auto",
             marginTop: "20px" // Adjust as necessary
           }}
@@ -64,7 +74,7 @@ const CoinPrice = () => {
             </TableHead>
             <TableBody>
               {categories.map((coin, index) => (
-                <TableRow onClick={()=> handleReturn(coin)}>
+                <TableRow onClick={() => handleReturn(coin)}>
                   <TableCell>
                     <img
                       src={coin.image}
@@ -88,4 +98,4 @@ const CoinPrice = () => {
   );
 };
 
-export default CoinPrice;
+export default CoinDataTable;

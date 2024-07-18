@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 
 
-const coinPriceInstance = axios.create({
+const coinDataTableInstance = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
@@ -11,19 +11,19 @@ const coinPriceInstance = axios.create({
 });
 
 
-export const fetchCoinPrice = createAsyncThunk(
-    "coinPrice/fetchCoinPrice",
-    async () => {
-        try {
-            const response = await coinPriceInstance.get("simple/supported_vs_currencies");
-            return response.data;
-        } catch (error) {
-        }
-    }
+export const fetchCoinDataTable = createAsyncThunk(
+    "coinDataTable/fetchCoinDataTable",
+    // async () => {
+    //     try {
+    //         const response = await coinDataTableInstance.get("simple/supported_vs_currencies");
+    //         return response.data;
+    //     } catch (error) {
+    //     }
+    // }
 );
 
-const coinPriceSlice = createSlice({
-    name: "coinPrice",
+const coinDataTableSlice = createSlice({
+    name: "coinDataTable",
     initialState: {
         priceList: [],
         errors: false,
@@ -31,19 +31,19 @@ const coinPriceSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchCoinPrice.pending, (state) => {
+        builder.addCase(fetchCoinDataTable.pending, (state) => {
             state.status = "loading";
             state.priceList = [];
         })
-            .addCase(fetchCoinPrice.fulfilled, (state, action) => {
+            .addCase(fetchCoinDataTable.fulfilled, (state, action) => {
                 state.priceList = action.payload;
                 state.status = "idle";
             })
-            .addCase(fetchCoinPrice.rejected, (state, action) => {
+            .addCase(fetchCoinDataTable.rejected, (state, action) => {
                 state.status = "failed";
                 state.errors = action.error.message;
             })
     }
 })
 
-export default coinPriceSlice.reducer
+export default coinDataTableSlice.reducer

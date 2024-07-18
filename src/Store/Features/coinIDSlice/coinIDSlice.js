@@ -5,8 +5,8 @@ export const fetchCoinIDs = createAsyncThunk(
   "coinID/fetchCoinIDs",
   async () => {
     try {
-      // const response = await axios.get("https://api.coingecko.com/api/v3/coins/list");
-      // return response.data;
+      const response = await axios.get("https://api.coingecko.com/api/v3/coins/list");
+      return response.data;
     } catch (error) {
       throw error;
     }
@@ -16,7 +16,7 @@ export const fetchCoinIDs = createAsyncThunk(
 const coinIDSlice = createSlice({
   name: "coinID",
   initialState: {
-    IDs: [], //fetchCoinIdData
+    IDs: [], 
     errors: false,
     status: "idle"
   },

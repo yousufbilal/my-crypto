@@ -1,28 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const coinGeckoInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 10000,
-});
+import coinGecko from "../../../services/coinGecko";
 
 export const addCoinList = createAsyncThunk(
   'coinList/addCoinList',
   async () => {
     try {
-      const response = await coinGeckoInstance.get('coins/markets?vs_currency=usd');
+      const response = await coinGecko.get('coins/markets?vs_currency=usd');
       return response.data;
     } catch (error) {
       throw error;
     }
   }
 );
-
-
-// see where to place axio instance structure 
 
 
 const coinListSlice = createSlice({

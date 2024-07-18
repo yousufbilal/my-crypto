@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./Pages/HomePage/Home";
 import { About } from "./Pages/About/About";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import CoinPrice from "./Componants/CoinPrice/CoinPrice";
+import CoinDataTable from "./Componants/CoinDataTable/CoinDataTable";
 import NFT from "./Componants/NFT/NFT";
 // require('dotenv').config();
 
@@ -17,13 +17,11 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="main-page">
-        {/* <CoinPrice /> */}
-        {/* <NFT/> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
