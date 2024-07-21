@@ -2,7 +2,9 @@ import { Box } from "@mui/system";
 import SideBar from "../SideBar/SideBar";
 import CoinDataTable from "../../Componants/CoinDataTable/CoinDataTable";
 import Header from "../../Componants/Header/Header";
-import Cards from "../../Componants/Cards/Cards";
+import TrendingCards from "../../Componants/TrendingCards/TrendingCards";
+import NFTCards from "../../Componants/NFTCards/NFTCards";
+import DeFiCard from "../../Componants/DeFiCard/DeFiCard";
 import "./Home.css";
 
 export const Home = () => {
@@ -25,7 +27,9 @@ export const Home = () => {
           justifyContent={"space-between"}
           padding={"10px"}
         >
-          <Cards label={"trending"} />
+          <TrendingCards label={"trending"} />
+          <NFTCards/>
+          <DeFiCard/>
         </Box>
         <CoinDataTable />
       </Box>

@@ -4,39 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCoinTrending } from "../../Store/Features/coinTrending/coinTrending"; // correct import path
 import { TableBody, TableCell, TableContainer, TableHead } from "@mui/material";
 
-const Cards = ({ label }) => {
+const TrendingCards = ({ label }) => {
   const dispatch = useDispatch();
 
   const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector(
     (state) => state.coinTrending
   );
 
-  const testFunc = () => {
-    // if (trending && trending.coins) {
-    //   for (let i = 0; i < trending.coins.length; i++) {
-    //     for (let j = 0; j < trending.coins.length; j++) {
-    //       // console.log(trending.coins[i].id[j]);
-    //       console.log(trending.coins[i].item.id);
-    //     }
-    //   }
-    // }
-    // if (trending && trending.coins) {
-    //   trending.coins.map((item) => {
-    //     console.log(item);
-    //     // console.log(item.id);
-    //   });
-    // }
-    // if (trending && trending.coins) {
-    //   trending.coins.map((item) => {
-    //     console.log(item.item.id);
-    //     // console.log(item.id);
-    //   });
-    // }
-    console.log(trending.coins);
+  console.log(trending.coins);
+
+  const coinPriceFormat = () => {
+    let coinPrice = 0;
+    if (trending && trending.coins) {
+      trending.coins.map(
+        (item) => (coinPrice = item.item.data.price.toFixed(2))
+      );
+    }
+    return coinPrice;
   };
 
   useEffect(() => {
-    testFunc();
+    coinPriceFormat();
   }, [trending]);
 
   useEffect(() => {
@@ -48,7 +36,7 @@ const Cards = ({ label }) => {
       display="flex"
       flexDirection="column"
       overflow={"scroll"}
-      sx={{ height: "400px", width: "500px", border: "1px solid black" }}
+      sx={{ height: "400px", width: "500px" }}
     >
       {label}
       {trending && trending.coins ? (
@@ -58,10 +46,14 @@ const Cards = ({ label }) => {
               <li>
                 <img
                   src={item.item.small}
-                  alt={item.item.symbol}
                   style={{ width: "50px", height: "50px", marginRight: "10px" }}
                 />
-                {item.item.symbol}______{item.item.data.price}
+                {item.item.symbol} price:{coinPriceFormat()}
+                <img
+                  src={item.item.data.sparkline}
+                  alt={`Sparkline for ${item.name}`}
+                  style={{ width: "200px", height: "auto" }}
+                />
               </li>
             </>
           ))}
@@ -73,6 +65,6 @@ const Cards = ({ label }) => {
   );
 };
 
-export default Cards;
+export default TrendingCards;
 
 //fetch('https://api.coingecko.com/api/v3/search/trending', options)

@@ -25,7 +25,7 @@ const CoinCard = ({ coin }) => {
               style={{ width: 50, height: 50 }}
             />
 
-            <Box sx={{ border: "1px solid red" , padding:"10px" }}>
+            <Box sx={{padding:"10px" }}>
               {/*  Basic Information */}
               <Box>Name: {coin?.name}</Box>
               <Box>Symbol: {coin?.symbol}</Box>
@@ -53,7 +53,7 @@ const CoinCard = ({ coin }) => {
               </Box>
             </Box>
 
-            <Box sx={{ border: "1px solid red" , marginTop:"10px" , padding:"10px"  }}>
+            <Box sx={{ marginTop:"10px" , padding:"10px"  }}>
               {/* // Supply and Market Information */}
               <Box>Circulating Supply: {coin?.circulating_supply}</Box>
               <Box>Total Supply: {coin?.total_supply}</Box>
