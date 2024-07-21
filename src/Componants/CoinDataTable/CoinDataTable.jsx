@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoinList } from "../../Store/Features/coinListSlice/coinListSlice";
-import { fetchCoinDataTable } from "../../Store/Features/coinDataTableSlice/coinDataTableSlice";
 import { useTranslation } from "react-i18next";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -11,23 +10,22 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
-import { Link, useNavigate } from "react-router-dom";
-import { fetchCoinIDs } from "../../Store/Features/coinIDSlice/coinIDSlice";
+import { useNavigate } from "react-router-dom";
+import Star from "@mui/icons-material/Star";
+import StarBorder from "@mui/icons-material/StarBorder";
 import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
+import Checkbox from "@mui/material/Checkbox";
+import { Sparkline } from "react-sparklines";
+
 const CoinDataTable = () => {
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
-  // const { coinHistoricPrice } = useSelector((state) => state.fetchCoinHistoricPrice);
-  // const { IDs } = useSelector((state) => state.coinID);
+  const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
   // const { t } = useTranslation();
-
-  // console.log(coinHistoricPrice.prices)
 
   useEffect(() => {
     dispatch(addCoinList());
-    dispatch(fetchCoinIDs());
-    dispatch(fetchCoinDataTable());
-    dispatch(fetchCoinHistoricPrice());
+    // dispatch(fetchCoinHistoricPrice());
   }, [dispatch]);
 
   const isLoading = status === "loading" || !categories.length;
@@ -35,9 +33,7 @@ const CoinDataTable = () => {
   const navigate = useNavigate();
 
   const handleReturn = (coin) => {
-    navigate("/about", { state: { coin, } });
-    // navigate("/about", { state: { coin, coinHistoricPrice } });
-
+    navigate("/about", { state: { coin, coinHistoricPrice } });
   };
 
   return (
@@ -55,14 +51,14 @@ const CoinDataTable = () => {
             justifyContent: "center",
             height: "100vh",
             width: "100vw",
-            overflowY: "auto",
-            marginTop: "20px" // Adjust as necessary
+            overflow: "auto",
+            padding: "10px"
           }}
-          component={Paper}
         >
           <Table stickyHeader>
             <TableHead>
               <TableRow>
+                <TableCell></TableCell>
                 <TableCell>Image</TableCell>
                 <TableCell>Coin Symbol</TableCell>
                 <TableCell>Coin Name</TableCell>
@@ -73,8 +69,14 @@ const CoinDataTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {categories.map((coin, index) => (
-                <TableRow onClick={() => handleReturn(coin)}>
+              {categories.map((coin) => (
+                <TableRow key={coin.id} onClick={() => handleReturn(coin)}>
+                  <TableCell
+                    onClick={(event) => event.stopPropagation()} // Prevents handleReturn
+                    sx={{ height: "100%" }}
+                  >
+                    <Checkbox icon={<StarBorder />} checkedIcon={<Star />} />
+                  </TableCell>
                   <TableCell>
                     <img
                       src={coin.image}
@@ -88,6 +90,19 @@ const CoinDataTable = () => {
                   <TableCell>{coin.market_cap}</TableCell>
                   <TableCell>{coin.price_change_percentage_24h}</TableCell>
                   <TableCell>{coin.last_updated}</TableCell>
+                  <TableCell>
+                    (
+                    {/* <Sparkline
+                      data={[
+                        { x: 0, xval: "2005", yval: 20090440 },
+                        { x: 1, xval: "2006", yval: 20264080 }
+                        //...other data points
+                      ]}
+                      xName="xval"
+                      yName="yval"
+                    /> */}
+                    );
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

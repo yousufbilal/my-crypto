@@ -13,7 +13,6 @@ export const addCoinList = createAsyncThunk(
   }
 );
 
-
 const coinListSlice = createSlice({
   name: "coinList",
   initialState: {

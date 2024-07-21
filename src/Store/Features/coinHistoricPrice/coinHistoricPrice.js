@@ -3,26 +3,15 @@ import coinGecko from '../../../services/coinGecko';
 
 export const fetchCoinHistoricPrice = createAsyncThunk(
   'historicPrice/fetchCoinHistoricPrice',
-  // async (coinId, { rejectWithValue }) => {
-  //   try {
-  //     const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
-  //     return response.data;
-  //   } catch (error) {
-  //     return rejectWithValue(error.response.data);
-  //   }
-  // }
+  async (coinId, { rejectWithValue }) => {
+    try {
+      const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
 );
-
-
-// export const fetchCoinHistoricPrice = createAsyncThunk(
-//   'historicPrice/fetchCoinHistoricPrice',
-//   async (coinId) => {
-//     console.log(coinId)
-//     const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
-//     return response.data;
-//   }
-// );
-
 
 
 const coinHistoricSlice = createSlice({

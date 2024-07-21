@@ -8,36 +8,24 @@ import LineChart from "../../Componants/PlotlyGraphs/LineChart";
 import { useEffect } from "react";
 import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
 import { useDispatch, useSelector } from "react-redux";
-
+import Header from "../../Componants/Header/Header";
 
 export const About = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const coin = location.state?.coin;
-  const coinHistoric = location.state?.coinHistoricPrice;
+  const coinPrice = location.state?.coinHistoricPrice;
 
-  const { categories, status } = useSelector((state) => state.coinList);
+  for (let i = 0; i < coinPrice.lenght; i++) {
+    console.log(coinPrice[i]);
+  }
 
   useEffect(() => {
-    dispatch(fetchCoinHistoricPrice());
+    dispatch(fetchCoinHistoricPrice(coin.id));
   }, [dispatch]);
 
-
-  useEffect(() => {
-    if (coin?.id) {
-      dispatch(fetchCoinHistoricPrice(coin.id));
-    }
-  }, [coin, dispatch]);
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        width: "500px"
-      }}
-    >
+    <>
       <Box
         sx={{
           display: "flex",
@@ -45,25 +33,11 @@ export const About = () => {
           alignItems: "center"
         }}
       >
+        <Header/>
         <SideBar />
-        <LineChart coinHistoric={coinHistoric} />
         <CoinCard coin={coin} />
+        <LineChart coinPrice={coinPrice} />
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 2
-        }}
-      >
-        <Link to="/">
-          <HomeIcon />
-        </Link>
-      </Box>
-    </Box>
+    </>
   );
 };
-
-// https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30
-// https://api.coingecko.com/api/v3/coins/{id}/market_chart/range

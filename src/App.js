@@ -4,7 +4,6 @@ import { Home } from "./Pages/HomePage/Home";
 import { About } from "./Pages/About/About";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import CoinDataTable from "./Componants/CoinDataTable/CoinDataTable";
-import NFT from "./Componants/NFT/NFT";
 // require('dotenv').config();
 
 

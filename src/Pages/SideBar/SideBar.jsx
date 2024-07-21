@@ -13,30 +13,30 @@ const SideBar = ({ selected }) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      borderRadius={"5px"}
       gap={4}
       p={2}
       sx={{
         height: "100vh",
-        border: "1px solid grey",
-        width: "30px",
-        backgroundColor: "lightblue"
+        width: "50px",
+        backgroundColor: "lightblue",
       }}
     >
       <Link to={"/"}>
-        <HomeIcon active={selected === "home"} />
+        <HomeIcon
+          sx={{
+            marginTop: "50px"
+          }}
+          active={selected === "home"}
+        />
       </Link>
 
-      <Link to={"/about"}>
+      {/* <Link to={"/about"}>
         <EqualizerIcon active={selected === "about"} />
-      </Link>
+      </Link> */}
 
       <CurrencyBitcoinIcon />
-
       <DashboardIcon />
-
       <ShowChartIcon />
-
     </Box>
   );
 };
