@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { border } from "@mui/system";
+import { border, height } from "@mui/system";
 import BitcoinLogo from "../../Assests/BitcoinLogo.svg";
 import SearchBar from "../Atoms/SearchBar";
 
@@ -12,13 +12,11 @@ const Header = () => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "start",
+        alignItems: "center",
         padding: 2,
         boxSizing: "border-box",
-        width: "100vw",
-        overflow: "hidden",
         background: "#ADD8E6",
-        padding: "none"
+        height: "60px"
       }}
     >
       <Box>

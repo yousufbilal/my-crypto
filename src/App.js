@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./Pages/HomePage/Home";
 import { About } from "./Pages/About/About";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import CoinDataTable from "./Componants/CoinDataTable/CoinDataTable";
 // require('dotenv').config();
 
 

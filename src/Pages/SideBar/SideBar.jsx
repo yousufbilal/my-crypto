@@ -16,7 +16,7 @@ const SideBar = ({ selected }) => {
       gap={4}
       p={2}
       sx={{
-        height: "100vh",
+        height: "100%",
         width: "50px",
         backgroundColor: "lightblue",
       }}

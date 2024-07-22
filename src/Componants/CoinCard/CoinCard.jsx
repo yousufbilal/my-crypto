@@ -32,7 +32,7 @@ const CoinCard = ({ coin }) => {
               <Box>ID: {coin?.id}</Box>
             </Box>
 
-            <Box sx={{ border: "1px solid red", marginTop:"10px", padding:"10px" }}>
+            <Box sx={{ marginTop:"10px", padding:"10px" }}>
               {/* // Price Information */}
               <Box>Current Price: {coin?.current_price}</Box>
               <Box>All Time High: {coin?.ath}</Box>

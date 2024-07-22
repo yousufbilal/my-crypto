@@ -46,18 +46,22 @@ const CoinDataTable = () => {
         </div>
       ) : (
         <TableContainer
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            height: "100vh",
-            width: "100vw",
+          style={{
+            // maxHeight: "300px",
             overflow: "auto",
-            padding: "10px"
+            border: "1px solid #ECEEF1"
           }}
         >
-          <Table stickyHeader>
+          <Table
+            stickyHeader
+            style={{
+              border: "1px solid #ddd",
+              borderSpacing: "10px",
+              tableLayout: "fixed" // Helps to ensure consistent row height
+            }}
+          >
             <TableHead>
-              <TableRow>
+              <TableRow maxHeight={"5px"}>
                 <TableCell></TableCell>
                 <TableCell>Image</TableCell>
                 <TableCell>Coin Symbol</TableCell>
@@ -68,14 +72,22 @@ const CoinDataTable = () => {
                 <TableCell>Coin Last Update</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
               {categories.map((coin) => (
-                <TableRow key={coin.id} onClick={() => handleReturn(coin)}>
-                  <TableCell
-                    onClick={(event) => event.stopPropagation()} // Prevents handleReturn
-                    sx={{ height: "100%" }}
-                  >
-                    <Checkbox icon={<StarBorder />} checkedIcon={<Star />} />
+                <TableRow
+                  onClick={() => handleReturn(coin)}
+                  key={coin.id}
+                  style={{
+                    backgroundColor: "white",
+                    height: "5px",
+                    border: "1px solid red"
+                  }}
+                >
+                  <TableCell onClick={(event) => event.stopPropagation()}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <Checkbox icon={<StarBorder />} checkedIcon={<Star />} />
+                    </div>
                   </TableCell>
                   <TableCell>
                     <img
@@ -90,19 +102,6 @@ const CoinDataTable = () => {
                   <TableCell>{coin.market_cap}</TableCell>
                   <TableCell>{coin.price_change_percentage_24h}</TableCell>
                   <TableCell>{coin.last_updated}</TableCell>
-                  <TableCell>
-                    (
-                    {/* <Sparkline
-                      data={[
-                        { x: 0, xval: "2005", yval: 20090440 },
-                        { x: 1, xval: "2006", yval: 20264080 }
-                        //...other data points
-                      ]}
-                      xName="xval"
-                      yName="yval"
-                    /> */}
-                    );
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

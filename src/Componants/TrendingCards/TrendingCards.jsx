@@ -1,10 +1,10 @@
-import { Box } from "@mui/system";
+import { Box, border } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoinTrending } from "../../Store/Features/coinTrending/coinTrending"; // correct import path
 import { TableBody, TableCell, TableContainer, TableHead } from "@mui/material";
 
-const TrendingCards = ({ label }) => {
+const TrendingCards = () => {
   const dispatch = useDispatch();
 
   const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector(
@@ -36,28 +36,71 @@ const TrendingCards = ({ label }) => {
       display="flex"
       flexDirection="column"
       overflow={"scroll"}
-      sx={{ height: "400px", width: "500px" }}
+      sx={{
+        width: "500px",
+        height: "400px",
+        background: "white",
+        overflow: "auto",
+        border: "none",
+        boxShadow: "none",
+        padding: "10px",
+        borderRadius: "10px",
+        "&::-webkit-scrollbar": {
+          display: "none"
+        },
+        "-ms-overflow-style": "none",
+        "scrollbar-width": "none"
+      }}
     >
-      {label}
+      <h3>Trending Coins</h3>
       {trending && trending.coins ? (
-        <ol>
+        <Box>
           {trending.coins.map((item) => (
             <>
-              <li>
+              <li
+                style={{
+                  width: "100%",
+                  justifyContent: "space-between",
+                  display: "flex",
+                  flexDirection: "row",
+                  // border: "1px solid gold",
+                  borderRadius: "5px",
+                  marginBottom: "20px",
+                  border: "1px solid #ddd" ,
+                  padding:"10px"
+                }}
+              >
                 <img
                   src={item.item.small}
-                  style={{ width: "50px", height: "50px", marginRight: "10px" }}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "5px"
+                  }}
                 />
-                {item.item.symbol} price:{coinPriceFormat()}
+                <Box
+                  width={"100%"}
+                  justifyContent={"center"}
+                  display={"flex"}
+                  alignItems={"center"}
+                >
+                  <div>
+                    {item.item.symbol} price:{coinPriceFormat()}
+                  </div>
+                </Box>
                 <img
                   src={item.item.data.sparkline}
                   alt={`Sparkline for ${item.name}`}
-                  style={{ width: "200px", height: "auto" }}
+                  style={{
+                    borderRadius: "5px",
+                    width: "auto",
+                    height: "auto"
+                  }}
                 />
               </li>
             </>
           ))}
-        </ol>
+        </Box>
       ) : (
         <p>No items available</p>
       )}
