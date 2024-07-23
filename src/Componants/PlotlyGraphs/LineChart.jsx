@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import Plotly from "plotly.js-dist";
 
-const LineChart = ({ coinPrice }) => {
-  console.log(coinPrice.prices);
+const LineChart = () => {
 
   let test = {
     prices: [

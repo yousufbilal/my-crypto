@@ -15,10 +15,11 @@ const SideBar = ({ selected }) => {
       alignItems="center"
       gap={4}
       p={2}
+      borderRadius={"5px"}
       sx={{
         height: "100%",
         width: "50px",
-        backgroundColor: "lightblue",
+        backgroundColor: "lightblue"
       }}
     >
       <Link to={"/"}>
@@ -29,11 +30,6 @@ const SideBar = ({ selected }) => {
           active={selected === "home"}
         />
       </Link>
-
-      {/* <Link to={"/about"}>
-        <EqualizerIcon active={selected === "about"} />
-      </Link> */}
-
       <CurrencyBitcoinIcon />
       <DashboardIcon />
       <ShowChartIcon />
@@ -42,18 +38,3 @@ const SideBar = ({ selected }) => {
 };
 
 export default SideBar;
-
-{
-  /* <Link to="/">
-<HomeIcon />
-</Link>
-<Link to="/show">
-<EqualizerIcon />
-</Link>
-<Link to="/about">
-<DashboardIcon />
-</Link>
-<Link to="/about">
-<CurrencyBitcoinIcon />
-</Link> */
-}

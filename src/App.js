@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./Pages/HomePage/Home";
 import { About } from "./Pages/About/About";
+import FavPage from "./Pages/FavPage/FavPage";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 // require('dotenv').config();
 
@@ -23,6 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/FavPage" element={<FavPage />} />
+
         </Routes>
       </div>
     </ThemeProvider>

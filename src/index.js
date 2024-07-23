@@ -41,17 +41,3 @@ root.render(
   </I18nextProvider>,
 
 );
-
-
-// import Backend from 'i18next-http-backend';
-
-// i18n
-//   .use(Backend) // Load translations using http backend
-//   .init({
-//     interpolation: { escapeValue: false },
-//     lng: 'en', // Default language
-//     fallbackLng: 'en', // Fallback language
-//     backend: {
-//       loadPath: '/locales/{{lng}}/{{ns}}.json', // Path to translation files
-//     },
-//   });

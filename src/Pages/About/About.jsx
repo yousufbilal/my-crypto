@@ -14,18 +14,16 @@ export const About = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const coin = location.state?.coin;
+  const newCoin = location.state?.filterCoin;
   const coinPrice = location.state?.coinHistoricPrice;
 
-  for (let i = 0; i < coinPrice.lenght; i++) {
-    console.log(coinPrice[i]);
-  }
-
   useEffect(() => {
-    dispatch(fetchCoinHistoricPrice(coin.id));
+    dispatch(fetchCoinHistoricPrice(coin?.id));
   }, [dispatch]);
 
   return (
     <>
+      ABOUT PAGE
       <Box
         sx={{
           display: "flex",
@@ -33,10 +31,11 @@ export const About = () => {
           alignItems: "center"
         }}
       >
-        <Header/>
+        {/* <Header /> */}
         <SideBar />
-        <CoinCard coin={coin} />
-        <LineChart coinPrice={coinPrice} />
+        <CoinCard coin={coin} newCoin={newCoin} /> 
+        
+        <LineChart coinPrice={coinPrice || newCoin} />
       </Box>
     </>
   );

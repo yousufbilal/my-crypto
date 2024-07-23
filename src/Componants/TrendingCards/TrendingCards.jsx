@@ -11,8 +11,6 @@ const TrendingCards = () => {
     (state) => state.coinTrending
   );
 
-  console.log(trending.coins);
-
   const coinPriceFormat = () => {
     let coinPrice = 0;
     if (trending && trending.coins) {
@@ -63,11 +61,10 @@ const TrendingCards = () => {
                   justifyContent: "space-between",
                   display: "flex",
                   flexDirection: "row",
-                  // border: "1px solid gold",
                   borderRadius: "5px",
                   marginBottom: "20px",
-                  border: "1px solid #ddd" ,
-                  padding:"10px"
+                  border: "1px solid #ddd",
+                  padding: "10px"
                 }}
               >
                 <img
@@ -78,15 +75,22 @@ const TrendingCards = () => {
                     borderRadius: "5px"
                   }}
                 />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    paddingLeft: "10px"
+                  }}
+                >
+                  {item.item.symbol}
+                </div>
                 <Box
                   width={"100%"}
                   justifyContent={"center"}
                   display={"flex"}
                   alignItems={"center"}
                 >
-                  <div>
-                    {item.item.symbol} price:{coinPriceFormat()}
-                  </div>
+                  <div>usd ${item.item.data.price.toFixed(2)}</div>
                 </Box>
                 <img
                   src={item.item.data.sparkline}

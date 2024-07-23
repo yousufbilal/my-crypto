@@ -36,7 +36,7 @@ const DeFiCard = () => {
         "scrollbar-width": "none"
       }}
     >
-      <h3>Categories</h3>
+      <h3>Trending Categories</h3>
       <Box component="ol" sx={{ padding: 0, margin: 0 }}>
         {trending.categories?.map((item) => (
           <li
@@ -64,8 +64,8 @@ const DeFiCard = () => {
               <div style={{ fontSize: "16px", fontWeight: "bold" }}>
                 Name: {item.name}
               </div>
-              <div>Total Volume: {item.data.total_volume}</div>
-              <div>Market Cap: {item.data.market_cap}</div>
+              <div>Total Volume: {item.data.total_volume.toFixed(2)}</div>
+              <div>Market Cap: {item.data.market_cap.toFixed(2)}</div>
             </Box>
             <img
               src={item.data.sparkline}

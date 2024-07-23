@@ -13,10 +13,12 @@ const Header = () => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: 2,
+        padding: 5,
         boxSizing: "border-box",
         background: "#ADD8E6",
-        height: "60px"
+        height: "60px",
+        zIndex: "10",
+        background: "#ADD8E6"
       }}
     >
       <Box>
@@ -35,5 +37,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// border: "1px solid red"

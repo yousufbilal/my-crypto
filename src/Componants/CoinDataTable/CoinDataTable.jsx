@@ -18,6 +18,8 @@ import Checkbox from "@mui/material/Checkbox";
 import { Sparkline } from "react-sparklines";
 
 const CoinDataTable = () => {
+  const [favCoins, setFavCoins] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
@@ -30,11 +32,16 @@ const CoinDataTable = () => {
 
   const isLoading = status === "loading" || !categories.length;
 
-  const navigate = useNavigate();
-
   const handleReturn = (coin) => {
     navigate("/about", { state: { coin, coinHistoricPrice } });
   };
+
+  const favSelect = (coinData) => {
+    console.log("Selected Coin:", coinData);
+    setFavCoins((prevFavCoins) => [coinData, ...prevFavCoins]);
+  };
+
+  console.log(favCoins);
 
   return (
     <>
@@ -61,7 +68,7 @@ const CoinDataTable = () => {
             }}
           >
             <TableHead>
-              <TableRow maxHeight={"5px"}>
+              <TableRow maxHeight={"5px"} style={{ fontSize: "20px" }}>
                 <TableCell></TableCell>
                 <TableCell>Image</TableCell>
                 <TableCell>Coin Symbol</TableCell>
@@ -86,7 +93,11 @@ const CoinDataTable = () => {
                 >
                   <TableCell onClick={(event) => event.stopPropagation()}>
                     <div style={{ display: "flex", alignItems: "center" }}>
-                      <Checkbox icon={<StarBorder />} checkedIcon={<Star />} />
+                      <Checkbox
+                        onClick={() => favSelect(coin)}
+                        icon={<StarBorder />}
+                        checkedIcon={<Star />}
+                      />
                     </div>
                   </TableCell>
                   <TableCell>
@@ -98,9 +109,11 @@ const CoinDataTable = () => {
                   </TableCell>
                   <TableCell>{coin.symbol}</TableCell>
                   <TableCell>{coin.name}</TableCell>
-                  <TableCell>{coin.current_price}</TableCell>
-                  <TableCell>{coin.market_cap}</TableCell>
-                  <TableCell>{coin.price_change_percentage_24h}</TableCell>
+                  <TableCell>{coin.current_price.toFixed(2)}</TableCell>
+                  <TableCell>{coin.market_cap.toFixed(2)}</TableCell>
+                  <TableCell>
+                    {coin.price_change_percentage_24h.toFixed(2)}
+                  </TableCell>
                   <TableCell>{coin.last_updated}</TableCell>
                 </TableRow>
               ))}
