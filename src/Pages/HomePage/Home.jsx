@@ -8,13 +8,21 @@ import DeFiCard from "../../Componants/DeFiCard/DeFiCard";
 import "./Home.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+// import  CoinStatus  from "../../Componants/CoinStatus/CoinStatus";
 
 export const Home = () => {
+  const [favCoins, setFavCoins] = useState([]);
   const navigate = useNavigate();
-
   const favButtonHandler = () => {
-    navigate("/FavPage");
+    navigate("/FavPage", { state: { favCoins } });
   };
+
+  // const TestFunc=(tsadsasd)=>{ can pass a func instead of a setState
+  //   console.log("test func")
+  //   //setFavCoin(tsadsasd)
+  // }
 
   return (
     <Box
@@ -68,6 +76,7 @@ export const Home = () => {
                 justifyContent={"space-between"}
                 borderRadius={"5px"}
                 marginBottom={"30px"}
+                marginTop={"30px"}
                 sx={{ backgroundColor: "#ECEEF1", padding: 3 }}
               >
                 <TrendingCards />
@@ -76,12 +85,15 @@ export const Home = () => {
               </Box>
               <Button onClick={() => favButtonHandler()}>fav button</Button>
               <Box>
-                <CoinDataTable />
+                <CoinDataTable setFavCoins={setFavCoins}
+                favCoins={favCoins} />
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
+
+      {/* <CoinStatus /> */}
     </Box>
   );
 };

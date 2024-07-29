@@ -2,6 +2,8 @@ import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 
 const CoinCard = ({ coin, newCoin }) => {
   const { categories, status } = useSelector((state) => state.coinList);

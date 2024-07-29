@@ -26,16 +26,20 @@ export const About = () => {
       ABOUT PAGE
       <Box
         sx={{
-          display: "flex",
-          flex: 1,
-          alignItems: "center"
+          display: "flex"
         }}
       >
-        {/* <Header /> */}
-        <SideBar />
-        <CoinCard coin={coin} newCoin={newCoin} /> 
-        
+        <Box height={"100%"}>
+          <SideBar />
+        </Box>
+
+        <Box width={"100%"}>
+          <Header />
+
+          <CoinCard coin={coin} newCoin={newCoin} />
         <LineChart coinPrice={coinPrice || newCoin} />
+        </Box>
+
       </Box>
     </>
   );

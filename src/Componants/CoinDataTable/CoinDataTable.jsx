@@ -10,24 +10,29 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import Star from "@mui/icons-material/Star";
 import StarBorder from "@mui/icons-material/StarBorder";
 import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
 import Checkbox from "@mui/material/Checkbox";
-import { Sparkline } from "react-sparklines";
+import { CoinStatus } from "../CoinStatus/CoinStatus";
 
-const CoinDataTable = () => {
-  const [favCoins, setFavCoins] = useState([]);
+const CoinDataTable = ({ setFavCoins, favCoins }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const [favCoins, setFavCoins] = useState([]);
   const { categories, status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
+  const favCollectedCoins = useSelector((state) => state.favCoin);
+
+  // const { favCollectedCoins } = useSelector((state) => state.favCoin);
   // const { t } = useTranslation();
+
+  // console.log(favCoins);
 
   useEffect(() => {
     dispatch(addCoinList());
-    // dispatch(fetchCoinHistoricPrice());
   }, [dispatch]);
 
   const isLoading = status === "loading" || !categories.length;
@@ -37,19 +42,28 @@ const CoinDataTable = () => {
   };
 
   const favSelect = (coinData) => {
-    console.log("Selected Coin:", coinData);
-    setFavCoins((prevFavCoins) => [coinData, ...prevFavCoins]);
+    let isInFavCoins = favCoins?.some((test) => test.id === coinData.id);
+
+    if (isInFavCoins) {
+      setFavCoins((prevFavCoins) =>
+        prevFavCoins.filter((coin) => coin.id !== coinData.id)
+      );
+    } else {
+      setFavCoins((prevFavCoins) => [coinData, ...prevFavCoins]);
+    }
   };
 
-  console.log(favCoins);
+  console.log(favCoins)
 
   return (
     <>
+      <CoinStatus />
       {isLoading ? (
         <div className="card-container">
-          <Skeleton height={50} width={300} />
-          <Skeleton height={40} width={200} />
-          <Skeleton height={40} width={150} />
+          <Skeleton height={50} width={"90%"} />
+          <Skeleton height={50} width={"80%"} />
+          <Skeleton height={50} width={"70%"} />
+          <Skeleton height={50} width={"50%"} />
         </div>
       ) : (
         <TableContainer
@@ -84,7 +98,7 @@ const CoinDataTable = () => {
               {categories.map((coin) => (
                 <TableRow
                   onClick={() => handleReturn(coin)}
-                  key={coin.id}
+                  // key={coin.id}
                   style={{
                     backgroundColor: "white",
                     height: "5px",

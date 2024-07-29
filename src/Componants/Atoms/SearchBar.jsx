@@ -21,14 +21,6 @@ const SearchBar = () => {
     dispatch(addCoinList());
   }, [dispatch]);
 
-  const cryptocurrencies = [
-    { name: "Bitcoin" },
-    { name: "Ethereum" },
-    { name: "Ripple" },
-    { name: "Litecoin" },
-    { name: "Bitcoin Cash" }
-  ];
-
   const userInput = (e) => {
     let userData = e.target.value.toLowerCase();
     const filtered = categories.filter((item) =>
@@ -54,7 +46,7 @@ const SearchBar = () => {
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
-        marginTop={"80px"}
+        // marginTop={"80px"}
       >
         <TextField
           onChange={(e) => userInput(e)}
@@ -64,62 +56,33 @@ const SearchBar = () => {
         />
         <SearchIcon />
 
-        {filterData.length > 0 ? (
-          filterData.map((filterCoin) => (
-            <Box
-              display="flex"
-              flexDirection="column" // Changed from "row" to "column"
-              onClick={() => handleReturn(filterCoin)}
-              key={filterCoin.name} // It's a good practice to add a key when mapping through arrays
-              sx={{ marginBottom: "10px" }} // Add some spacing between items if needed
-            >
+        {filterData.length > 0
+          ? filterData.map((filterCoin) => (
               <Box
-                display="flex"
-                flexDirection="row"
-                sx={{
-                  background: "white",
-                  height: "100%",
-                  width: "110px",
-                  borderRadius: "5px"
-                }}
+                // display="flex"
+                // flexDirection="column"
+                onClick={() => handleReturn(filterCoin)}
+                // key={filterCoin.name}
+                // sx={{ marginBottom: "10px" }}
               >
-                {filterCoin.name}
+                <Box
+                // display="flex"
+                // flexDirection="row"
+                // sx={{
+                //   background: "white",
+                //   height: "100%",
+                //   width: "110px",
+                //   borderRadius: "5px"
+                // }}
+                >
+                  {filterCoin.name}
+                </Box>
               </Box>
-            </Box>
-          ))
-        ) : (
-          <ListItem>
-            {/* <ListItemText
-      style={{
-        background: "white",
-        height: "100%",
-        borderRadius: "5px",
-        padding: "10px"
-      }}
-      primary="No results found"
-    /> */}
-          </ListItem>
-        )}
+            ))
+          : null}
       </Box>
     </Box>
   );
 };
 
 export default SearchBar;
-
-{
-  /* <ListItem
-style={{
-  position: "relative",
-  background: "white",
-  height: "100%",
-  borderRadius: "5px",
-  padding: "10px",
-  marginBottom: "10px"
-}}
->
-<ListItemText  onClick={() => testFunc(item.name)}/>{item.name}
-</ListItemText>
-
-</ListItem> */
-}
