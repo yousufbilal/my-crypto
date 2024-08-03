@@ -3,11 +3,13 @@ import coinGecko from "../../../services/coinGecko";
 
 export const addCoinStatusUpdate = createAsyncThunk(
     'coinStatusUpdate/addCoinStatusUpdate',
-    async () => {
-        const response = await coinGecko.get('coins/bitcoin/market_chart?vs_currency=usd&days=1');
+    async (coinID) => {
+        const response = await coinGecko.get(`coins/${coinID}`);
+        // const response = await coinGecko.get('coins/bitcoin/market_chart?vs_currency=usd&days=1');
         return response.data;
     }
 );
+
 
 const coinStatusUpdateSlice = createSlice({
     name: 'coinStatusUpdate',

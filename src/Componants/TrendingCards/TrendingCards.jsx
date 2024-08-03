@@ -9,9 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 const TrendingCards = () => {
   const dispatch = useDispatch();
 
-  const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector(
-    (state) => state.coinTrending
-  );
+  const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector((state) => state.coinTrending);
 
   const coinPriceFormat = () => {
     let coinPrice = 0;

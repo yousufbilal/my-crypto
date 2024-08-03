@@ -1,34 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Plotly from "plotly.js-dist";
+import { CoinID } from "../../HelperFile/helper";
 
-const LineChart = () => {
+const LineChart = ({ coinPrice }) => {
+  const [testState, setTestState] = useState();
 
-  let test = {
-    prices: [
-      [11, 22],
-      [22, 50],
-      [50, 100],
-      [22, 43]
-    ],
-    price2: [
-      [30, 60],
-      [40, 80],
-      [60, 120],
-      [30, 50]
-    ]
-  };
-
-  const testFunc = () => {
-    // console.log(coinPrice)
-    // console.log(coinPrice) //this is working
-    // for (let i = 0; i < coinPrice.length; i++) {
-    //   console.log(coinPrice[i].prices);
-    // }
-  };
-
-  useEffect(() => {
-    testFunc();
-  }, []);
+  // useEffect(() => {
+  //   setTestState(
+  //     coinPrice?.prices?.map(([timestamph, prices]) => console.log(prices))
+  //   );
+  // }, [coinPrice]);
 
   useEffect(() => {
     const xArray = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
@@ -43,15 +24,15 @@ const LineChart = () => {
     ];
 
     const layout = {
-      xaxis: { range: [40, 160], title: "Square Meters" },
-      yaxis: { range: [5, 16], title: "Price in Millions" },
+      xaxis: { range: [40, 1000000000000], title: "Square Meters" },
+      yaxis: { range: [40, 1000000000000], title: "Price in Millions" },
       title: "Coin Prices"
     };
 
     Plotly.newPlot("myPlot", data, layout);
   }, []);
 
-  return <div id="myPlot" style={{ width: "800px", height: "600px" }}></div>;
+  return <div id="myPlot" style={{ width: "500px", height: "500px" }}></div>;
 };
 
 export default LineChart;

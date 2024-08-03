@@ -14,6 +14,8 @@ import React, { useEffect, useState } from "react";
 
 export const Home = () => {
   const [favCoins, setFavCoins] = useState([]);
+  
+
   const navigate = useNavigate();
   const favButtonHandler = () => {
     navigate("/FavPage", { state: { favCoins } });
@@ -83,10 +85,12 @@ export const Home = () => {
                 <NFTCards />
                 <DeFiCard />
               </Box>
-              <Button onClick={() => favButtonHandler()}>fav button</Button>
               <Box>
-                <CoinDataTable setFavCoins={setFavCoins}
-                favCoins={favCoins} />
+                <CoinDataTable
+                  setFavCoins={setFavCoins}
+                  favCoins={favCoins}
+                  favButtonHandler={favButtonHandler}
+                />
               </Box>
             </Box>
           </Box>

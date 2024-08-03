@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoinList } from "../../Store/Features/coinListSlice/coinListSlice";
-import { useTranslation } from "react-i18next";
 import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
@@ -14,32 +12,29 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import Star from "@mui/icons-material/Star";
 import StarBorder from "@mui/icons-material/StarBorder";
-import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
 import Checkbox from "@mui/material/Checkbox";
-import { CoinStatus } from "../CoinStatus/CoinStatus";
+import { Button } from "@mui/material";
+import { addCoinStatusUpdate } from "../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
 
-const CoinDataTable = ({ setFavCoins, favCoins }) => {
+const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [favCoins, setFavCoins] = useState([]);
   const { categories, status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
-  const favCollectedCoins = useSelector((state) => state.favCoin);
 
-  // const { favCollectedCoins } = useSelector((state) => state.favCoin);
-  // const { t } = useTranslation();
+  // const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
 
-  // console.log(favCoins);
+  const handleReturn = (coin) => {
+    dispatch(addCoinStatusUpdate(coin.id));
+    navigate("/about", { state: { coin, coinHistoricPrice } });
+  };
 
   useEffect(() => {
     dispatch(addCoinList());
+    // dispatch(addCoinStatusUpdate());
   }, [dispatch]);
 
   const isLoading = status === "loading" || !categories.length;
-
-  const handleReturn = (coin) => {
-    navigate("/about", { state: { coin, coinHistoricPrice } });
-  };
 
   const favSelect = (coinData) => {
     let isInFavCoins = favCoins?.some((test) => test.id === coinData.id);
@@ -53,11 +48,8 @@ const CoinDataTable = ({ setFavCoins, favCoins }) => {
     }
   };
 
-  console.log(favCoins)
-
   return (
     <>
-      <CoinStatus />
       {isLoading ? (
         <div className="card-container">
           <Skeleton height={50} width={"90%"} />
@@ -68,7 +60,7 @@ const CoinDataTable = ({ setFavCoins, favCoins }) => {
       ) : (
         <TableContainer
           style={{
-            // maxHeight: "300px",
+            borderRadius: "10px",
             overflow: "auto",
             border: "1px solid #ECEEF1"
           }}
@@ -77,13 +69,24 @@ const CoinDataTable = ({ setFavCoins, favCoins }) => {
             stickyHeader
             style={{
               border: "1px solid #ddd",
-              borderSpacing: "10px",
-              tableLayout: "fixed" // Helps to ensure consistent row height
+              borderSpacing: "0", // Remove spacing between cells
+              tableLayout: "fixed" // Ensures consistent row height
             }}
           >
             <TableHead>
-              <TableRow maxHeight={"5px"} style={{ fontSize: "20px" }}>
-                <TableCell></TableCell>
+              <TableRow
+                style={{
+                  fontSize: "15px"
+                }}
+              >
+                <TableCell>
+                  <Button
+                    sx={{ border: "1px solid #ECEEF1", fontSize: "15px" }}
+                    onClick={() => favButtonHandler()}
+                  >
+                    Compare
+                  </Button>
+                </TableCell>
                 <TableCell>Image</TableCell>
                 <TableCell>Coin Symbol</TableCell>
                 <TableCell>Coin Name</TableCell>
@@ -97,38 +100,57 @@ const CoinDataTable = ({ setFavCoins, favCoins }) => {
             <TableBody>
               {categories.map((coin) => (
                 <TableRow
+                  key={coin.id}
                   onClick={() => handleReturn(coin)}
-                  // key={coin.id}
                   style={{
-                    backgroundColor: "white",
-                    height: "5px",
-                    border: "1px solid red"
+                    backgroundColor: "white"
+                    // Set row height
                   }}
                 >
-                  <TableCell onClick={(event) => event.stopPropagation()}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                  <TableCell
+                    onClick={(event) => event.stopPropagation()}
+                    style={{ padding: "0" }} // Remove padding
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center"
+                      }}
+                    >
                       <Checkbox
                         onClick={() => favSelect(coin)}
-                        icon={<StarBorder />}
-                        checkedIcon={<Star />}
+                        icon={<StarBorder style={{ fontSize: "30px" }} />}
+                        checkedIcon={<Star style={{ fontSize: "20px" }} />}
                       />
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    style={{ padding: "0", overflow: "hidden" }} // Remove padding and handle overflow
+                  >
                     <img
                       src={coin.image}
                       alt={coin.name}
-                      style={{ width: 50, height: 50 }}
+                      style={{ width: "50px", height: "50px" }}
                     />
                   </TableCell>
-                  <TableCell>{coin.symbol}</TableCell>
-                  <TableCell>{coin.name}</TableCell>
-                  <TableCell>{coin.current_price.toFixed(2)}</TableCell>
-                  <TableCell>{coin.market_cap.toFixed(2)}</TableCell>
-                  <TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
+                    {coin.symbol}
+                  </TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
+                    {coin.name}
+                  </TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
+                    {coin.current_price.toFixed(2)}
+                  </TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
+                    {coin.market_cap.toFixed(2)}
+                  </TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
                     {coin.price_change_percentage_24h.toFixed(2)}
                   </TableCell>
-                  <TableCell>{coin.last_updated}</TableCell>
+                  <TableCell style={{ padding: "0", fontSize: "15px" }}>
+                    {coin.last_updated}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

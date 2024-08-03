@@ -18,7 +18,8 @@ const Header = () => {
         background: "#FFFFFF",
         height: "60px",
         zIndex: "10",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+
       }}
     >
       <Box display={"flex"} justifyContent={"center"} alignItems={"end"}>
