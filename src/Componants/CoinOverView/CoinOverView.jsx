@@ -5,13 +5,22 @@ export const CoinOverView = ({ statusUpdate }) => {
   return (
     <Card
       sx={{
+        display: "flex",
         maxWidth: 600,
+        maxHeight: 600,
         margin: "auto",
-        borderRadius: 2,
-        overflow: "auto",
+        overflow: "hidden",
         padding: 2,
         boxShadow: 3,
+        borderRadius: 5,
+        "&::-webkit-scrollbar": {
+          display: "none"
+        },
+        "-ms-overflow-style": "none",
+        "scrollbar-width": "none"
       }}
+      onMouseEnter={(e) => e.currentTarget.style.overflow = "auto"}
+      onMouseLeave={(e) => e.currentTarget.style.overflow = "hidden"}
     >
       <CardContent>
         <Typography variant="h5" component="div" sx={{ marginBottom: 2 }}>
@@ -36,11 +45,16 @@ export const CoinOverView = ({ statusUpdate }) => {
         </Box>
 
         <Typography variant="body1" sx={{ marginBottom: 2 }}>
-          Current Price: ${statusUpdate.market_data?.current_price?.usd?.toFixed(2)}
+          Current Price: $
+          {statusUpdate.market_data?.current_price?.usd?.toFixed(2)}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
-          Trust Score: {statusUpdate.tickers?.[0]?.trust_score || 'N/A'}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ marginBottom: 2 }}
+        >
+          Trust Score: {statusUpdate.tickers?.[0]?.trust_score || "N/A"}
         </Typography>
 
         <Typography variant="body2" color="text.secondary">

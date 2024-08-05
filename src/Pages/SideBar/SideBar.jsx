@@ -22,7 +22,7 @@ const SideBar = ({ selected }) => {
         backgroundColor: "lightblue"
       }}
     >
-      <Link to={"/"}>
+      <Link to={"/home"}>
         <HomeIcon
           sx={{
             marginTop: "50px"

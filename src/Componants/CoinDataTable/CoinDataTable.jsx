@@ -36,6 +36,8 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
 
   const isLoading = status === "loading" || !categories.length;
 
+
+  //LOOOOOK AT THIS FUNCTION AGAIN 
   const favSelect = (coinData) => {
     let isInFavCoins = favCoins?.some((test) => test.id === coinData.id);
 

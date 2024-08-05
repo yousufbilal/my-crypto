@@ -8,10 +8,14 @@ const CoinMarketView = ({ statusUpdate }) => {
     <Card
       sx={{
         maxWidth: 600,
+        maxHeight: 600,
         margin: "auto",
         borderRadius: 2,
-        boxShadow: 3
+        boxShadow: 3,
+        overflow: "hidden"
       }}
+      onMouseEnter={(e) => (e.currentTarget.style.overflow = "auto")}
+      onMouseLeave={(e) => (e.currentTarget.style.overflow = "hidden")}
     >
       <CardContent>
         <Typography variant="h5" component="div" sx={{ marginBottom: 2 }}>

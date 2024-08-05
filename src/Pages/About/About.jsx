@@ -1,26 +1,20 @@
 import { Box, Container } from "@mui/system";
-import { Link } from "react-router-dom";
 import SideBar from "../SideBar/SideBar";
-import HomeIcon from "@mui/icons-material/Home";
 import { useLocation } from "react-router-dom";
-import CoinCard from "../../Componants/CoinCard/CoinCard";
-import LineChart from "../../Componants/PlotlyGraphs/LineChart";
 import { useEffect } from "react";
 import { fetchCoinHistoricPrice } from "../../Store/Features/coinHistoricPrice/coinHistoricPrice";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../Componants/Header/Header";
-import { Typography } from "@mui/material";
 import { CoinOverView } from "../../Componants/CoinOverView/CoinOverView";
 import CoinMarketView from "../../Componants/CoinMarketView/CoinMarketView";
 import CoinCommunity from "../../Componants/CoinCommunity/CoinCommunity";
-import { CoinDev } from "../../Componants/CoinDev/CoinDev";
-import MyResponsiveLine from "../../Componants/PlotlyGraphs/MyResponsiveLine";
+import MyResponsiveLine from "../../Componants/MyResponsiveLine/MyResponsiveLine";
 
 export const About = ({ coinHistoricPrice }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const coin = location.state?.coin;
-  const newCoin = location.state?.filterCoin;
+  // const newCoin = location.state?.filterCoin;
   const coinPrice = location.state?.coinHistoricPrice;
   const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
 
@@ -30,48 +24,67 @@ export const About = ({ coinHistoricPrice }) => {
 
   return (
     <Box
+      display="flex"
+      flexDirection="row"
+      overflow="hidden"
       sx={{
-        width: "100vw",
-        height: "100vh"
+        background: "white",
+        height: "100%",
+        width: "100%",
+        position: "relative"
       }}
     >
       <Box
         sx={{
           width: "100%",
-          height: "64px",
-          position: "absolute",
-          top: 0,
-          zIndex: 10,
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-          background: "#ADD8E6"
+          height: "100%",
+          position: "relative"
         }}
       >
-        <Header />
-      </Box>
+        <Box
+          sx={{
+            width: "100%",
+            height: "64px",
+            position: "absolute",
+            top: 0,
+            zIndex: 10,
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            background: "#ADD8E6"
+          }}
+        >
+          <Header />
+        </Box>
 
-      <Box
-        display={"flex"}
-        justifyContent={"space-between"}
-        flexDirection="row"
-        sx={{
-          height: "100vh",
-          paddingTop: "64px"
-        }}
-      >
+        <Box display="flex" flexDirection="row" sx={{ paddingTop: "64px" }}>
+          <Box>
+            <SideBar />
+          </Box>
 
-          <SideBar />
+          <Box display="flex" flexDirection="column" width="100%">
+            <Box display="flex" flexDirection="column" padding={"20px"}>
+              <Box
+                width="100%"
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent={"space-between"}
+                borderRadius={"5px"}
+                marginBottom={"30px"}
+                marginTop={"30px"}
+                sx={{ backgroundColor: "#ECEEF1", padding: 3 }}
+              >
+                <CoinOverView statusUpdate={statusUpdate} />
+                <CoinMarketView statusUpdate={statusUpdate} />
+                <CoinCommunity statusUpdate={statusUpdate} />
+              </Box>
 
-        <CoinOverView statusUpdate={statusUpdate} />
-        <CoinMarketView statusUpdate={statusUpdate} />
-        <CoinCommunity statusUpdate={statusUpdate} />
-      </Box>
-      <Box sx={{ border: "1px solid red", padding: "20px" }}>
-        <MyResponsiveLine coinPrice={coinPrice} />
+              <Box sx={{ padding: "20px" }}>
+                <MyResponsiveLine coinPrice={coinPrice} />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
 };
-
-{
-  /* <CoinDev /> */
-}

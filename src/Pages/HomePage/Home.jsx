@@ -14,7 +14,6 @@ import React, { useEffect, useState } from "react";
 
 export const Home = () => {
   const [favCoins, setFavCoins] = useState([]);
-  
 
   const navigate = useNavigate();
   const favButtonHandler = () => {

@@ -4,10 +4,8 @@ import coinGecko from '../../../services/coinGecko';
 export const fetchCoinHistoricPrice = createAsyncThunk(
   'historicPrice/fetchCoinHistoricPrice',
   async (coinId, { rejectWithValue }) => {
-    console.log(coinId)
     try {
       const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
-      // console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
