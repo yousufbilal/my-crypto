@@ -6,6 +6,7 @@ export const addCoinList = createAsyncThunk(
   async () => {
     try {
       const response = await coinGecko.get('coins/markets?vs_currency=usd');
+      localStorage.setItem("user", JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       throw error;
@@ -13,10 +14,16 @@ export const addCoinList = createAsyncThunk(
   }
 );
 
+const loadInitialState = () => {
+  const savedData = localStorage.getItem("user");
+  return JSON.parse(savedData);
+};
+
 const coinListSlice = createSlice({
   name: "coinList",
   initialState: {
-    categories: [],
+    // categories: [],
+    categories: loadInitialState(),
     errors: false,
     status: "idle"
   },

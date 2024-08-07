@@ -58,25 +58,8 @@ const SearchBar = () => {
 
         {filterData.length > 0
           ? filterData.map((filterCoin) => (
-              <Box
-                // display="flex"
-                // flexDirection="column"
-                onClick={() => handleReturn(filterCoin)}
-                // key={filterCoin.name}
-                // sx={{ marginBottom: "10px" }}
-              >
-                <Box
-                // display="flex"
-                // flexDirection="row"
-                // sx={{
-                //   background: "white",
-                //   height: "100%",
-                //   width: "110px",
-                //   borderRadius: "5px"
-                // }}
-                >
-                  {filterCoin.name}
-                </Box>
+              <Box onClick={() => handleReturn(filterCoin)}>
+                <Box>{filterCoin.name}</Box>
               </Box>
             ))
           : null}

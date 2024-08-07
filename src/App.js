@@ -26,7 +26,7 @@ function App() {
     // Set up a listener to fetch data from Firebase
     const unsubscribe = onValue(dataRef, (snapshot) => {
       const value = snapshot.val();
-      console.log("Data snapshot:", value);
+      // console.log("Data snapshot:", value);
 
       if (value) {
         setData(value); // Set the actual value directly
@@ -48,7 +48,7 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="main-page">
-        <div>
+        {/* <div>
           <h1>Data from Firebase</h1>
           <ul>
             {data !== null ? ( // Render based on data existence
@@ -57,12 +57,12 @@ function App() {
               <li>No data available</li> // Fallback message
             )}
           </ul>
-        </div>
+        </div> */}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/fav-page" element={<FavPage />} />
+          <Route path="/favpage" element={<FavPage />} />
         </Routes>
       </div>
     </ThemeProvider>

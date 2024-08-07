@@ -9,6 +9,7 @@ import "./Home.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import LocalStorageFunc from "../../Componants/LocalStorageFunc/LocalStorageFunc";
 
 // import  CoinStatus  from "../../Componants/CoinStatus/CoinStatus";
 
@@ -16,6 +17,7 @@ export const Home = () => {
   const [favCoins, setFavCoins] = useState([]);
 
   const navigate = useNavigate();
+
   const favButtonHandler = () => {
     navigate("/FavPage", { state: { favCoins } });
   };
@@ -37,6 +39,8 @@ export const Home = () => {
         position: "relative"
       }}
     >
+
+      {/* <LocalStorageFunc/> */}
       <Box
         sx={{
           width: "100%",

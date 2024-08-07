@@ -13,7 +13,7 @@ const FavPage = () => {
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
 
-  console.log(testFavCoin);
+  console.log("yousuf");
 
   return (
     <Container sx={{ border: "1px solid #ECEEF1", padding: "16px" }}>
