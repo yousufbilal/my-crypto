@@ -28,12 +28,14 @@ export const CoinOverView = ({ statusUpdate }) => {
         </Typography>
 
         <Box display="flex" alignItems="center" sx={{ marginBottom: 2 }}>
+
           <CardMedia
             component="img"
             sx={{ height: 50, width: 50, borderRadius: "50%" }}
             image={statusUpdate.image?.large}
             alt={`${statusUpdate.name} logo`}
           />
+
           <Box sx={{ marginLeft: 2 }}>
             <Typography variant="h6">
               {statusUpdate.name} ({statusUpdate.symbol?.toUpperCase()})
@@ -42,8 +44,8 @@ export const CoinOverView = ({ statusUpdate }) => {
               Rank #{statusUpdate.market_cap_rank}
             </Typography>
           </Box>
+          
         </Box>
-
         <Typography variant="body1" sx={{ marginBottom: 2 }}>
           Current Price: $
           {statusUpdate.market_data?.current_price?.usd?.toFixed(2)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, border } from "@mui/system";
 import { Button, CardMedia, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -8,6 +8,19 @@ import bitcoinAnimation from "../../Assests/bitcoinAnimation.gif";
 // import Cryptowallet from "../../Assests/";
 
 export const LoginPage = () => {
+  const [userName, setUserName] = useState();
+  const [userPassWord, setUserPassword] = useState();
+  const [submitValue, setSubmitValue] = useState(false);
+
+  const testFunc = () => {
+    setSubmitValue(true);
+    console.log(userName, userPassWord);
+  };
+
+  useEffect(() => {
+    testFunc();
+  }, [submitValue]);
+
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ background: "white", height: "100vh", width: "30%" }}>
@@ -43,11 +56,23 @@ export const LoginPage = () => {
                 }}
               />
             </Box>
-            <TextField placeholder="user name"></TextField>
-            <TextField placeholder="password"></TextField>
+            <TextField
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="user name"
+            ></TextField>
 
-            <Link to={"/home"}>
-              <Button sx={{ border: "1px solid #ADD8E6", width: "300px" }}>
+            <TextField
+              onChange={(e) => setUserPassword(e.target.value)}
+              placeholder="password"
+            ></TextField>
+
+            <Link
+            // to={"/home"}
+            >
+              <Button
+                onClick={() => testFunc()}
+                sx={{ border: "1px solid #ADD8E6", width: "300px" }}
+              >
                 Submit
               </Button>
             </Link>

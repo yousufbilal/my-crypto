@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import coinGecko from "../../../services/coinGecko";
+import coinGecko from "../../../https/Clients/coinGecko";
 
 export const addCoinStatusUpdate = createAsyncThunk(
     'coinStatusUpdate/addCoinStatusUpdate',

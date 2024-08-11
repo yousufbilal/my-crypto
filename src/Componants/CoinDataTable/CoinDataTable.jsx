@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addCoinList } from "../../Store/Features/coinListSlice/coinListSlice";
 import TableContainer from "@mui/material/TableContainer";
@@ -9,31 +8,45 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
 import Star from "@mui/icons-material/Star";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import { addCoinStatusUpdate } from "../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
-import "react-loading-skeleton/dist/skeleton.css";
+import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 
 const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
-  const [user, setUser] = useState();
-  const isLoading = status === "loading" || !categories.length;
+
+  // const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
 
   const handleReturn = (coin) => {
     dispatch(addCoinStatusUpdate(coin.id));
     navigate("/about", { state: { coin, coinHistoricPrice } });
   };
 
-  useEffect(() => {
-    dispatch(addCoinList());
-  }, [[dispatch]]);
+  // useEffect(() => {
+  //   const storedCategories = localStorage.getItem("user");
+  //   if (storedCategories) {
+  //     setLocalCategories(JSON.parse(storedCategories));
+  //   } else {
+  //     dispatch(addCoinList());
+  //   }
+  // }, [dispatch]);
 
-  //LOOOOOK AT THIS FUNCTION AGAIN
+  useEffect(() => {
+    if (LocalStorageFunc()) {
+      dispatch(addCoinList());
+    }
+  }, [dispatch]);
+
+  const isLoading = status === "loading" || !LocalStorageFunc().length;
+
   const favSelect = (coinData) => {
     let isInFavCoins = favCoins?.some((test) => test.id === coinData.id);
 
@@ -48,12 +61,6 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
 
   return (
     <>
-      {/* <div>
-        <button onClick={callAPITest}>Call API</button>
-        <button onClick={deleteDataTest}>Delete data</button>
-        {user && <pre>{JSON.stringify(user, null, 4)}</pre>}
-      </div> */}
-
       {isLoading ? (
         <div className="card-container">
           <Skeleton height={50} width={"90%"} />
@@ -102,7 +109,7 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
             </TableHead>
 
             <TableBody>
-              {categories?.map((coin) => (
+              {LocalStorageFunc().map((coin) => (
                 <TableRow
                   key={coin.id}
                   onClick={() => handleReturn(coin)}

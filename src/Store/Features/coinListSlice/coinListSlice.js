@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import coinGecko from "../../../services/coinGecko";
+import coinGecko from "../../../https/Clients/coinGecko";
+import { LocalStorageFunc } from "../../../Componants/Atoms/LocalStorageFunc";
 
 export const addCoinList = createAsyncThunk(
   'coinList/addCoinList',
   async () => {
     try {
       const response = await coinGecko.get('coins/markets?vs_currency=usd');
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(response.data))
       return response.data;
     } catch (error) {
       throw error;
@@ -14,16 +15,16 @@ export const addCoinList = createAsyncThunk(
   }
 );
 
-const loadInitialState = () => {
-  const savedData = localStorage.getItem("user");
-  return JSON.parse(savedData);
-};
+// const testFunc = () => {
+//   let testVariable = localStorage.getItem("user");
+//   let testVav = JSON.parse(testVariable);
+//   return testVav
+// };
 
 const coinListSlice = createSlice({
   name: "coinList",
   initialState: {
-    // categories: [],
-    categories: loadInitialState(),
+    categories: [],
     errors: false,
     status: "idle"
   },
