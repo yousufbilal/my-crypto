@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Box, Container, border } from "@mui/system";
+import { Box } from "@mui/system";
 import { Button, CardMedia, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import dashboardImage from "../../Assests/dashboardImage.png";
 import screenshot2 from "../../Assests/screenshot2.png";
 import bitcoinAnimation from "../../Assests/bitcoinAnimation.gif";
-// import Cryptowallet from "../../Assests/";
+import { ref, set, get } from "firebase/database";
+import { getDatabase } from "firebase/database";
 
 export const LoginPage = () => {
-  const [userName, setUserName] = useState();
-  const [userPassWord, setUserPassword] = useState();
-  const [submitValue, setSubmitValue] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [userPassWord, setUserPassword] = useState("");
 
-  const testFunc = () => {
-    setSubmitValue(true);
-    console.log(userName, userPassWord);
+  const writeUserData = async () => {
+    const db = getDatabase();
+
+    const usersRef = ref(db, "users");
+    const snapshot = await get(usersRef);
+    const usersData = snapshot.val();
+
+    const userArray = Object.values(usersData);
+
+    let test = userArray.some((name) => {
+      return name.userName === userName;
+    });
+
+    if (!test) {
+      await set(ref(db, `users/${userName}`), {
+        userName: userName,
+        userPassWord: userPassWord
+      });
+    } else {
+      console.log("exists");
+    }
   };
-
-  useEffect(() => {
-    testFunc();
-  }, [submitValue]);
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -28,7 +41,6 @@ export const LoginPage = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-
             alignItems: "center",
             height: "100vh"
           }}
@@ -59,18 +71,20 @@ export const LoginPage = () => {
             <TextField
               onChange={(e) => setUserName(e.target.value)}
               placeholder="user name"
-            ></TextField>
+              value={userName} // Controlled input
+            />
 
             <TextField
               onChange={(e) => setUserPassword(e.target.value)}
               placeholder="password"
-            ></TextField>
+              value={userPassWord} // Controlled input
+            />
 
             <Link
             // to={"/home"}
             >
               <Button
-                onClick={() => testFunc()}
+                onClick={() => writeUserData()}
                 sx={{ border: "1px solid #ADD8E6", width: "300px" }}
               >
                 Submit
@@ -94,7 +108,6 @@ export const LoginPage = () => {
             borderRadius: "5px",
             marginLeft: "300px",
             marginTop: "450px",
-
             border: "px solid #6CB4EE"
           }}
           component="img"

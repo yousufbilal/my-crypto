@@ -78,6 +78,7 @@ export const Home = () => {
                 <NFTCards />
                 <DeFiCard />
               </Box>
+
               <Box>
                 <CoinDataTable
                   setFavCoins={setFavCoins}

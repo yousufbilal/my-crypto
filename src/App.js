@@ -7,8 +7,18 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import app from "./fireBaseDataBase";
 import { useState, useEffect } from "react";
-
+import { useTranslation } from "react-i18next"
 import "./App.css";
+
+
+function HeaderComponent() {
+  const { t, i18n } = useTranslation("common");
+  return <div>
+    <h1>{t('welcome.title', { framework: 'React' })}</h1>
+    <button onClick={() => i18n.changeLanguage('de')}>de</button>
+    <button onClick={() => i18n.changeLanguage('en')}>en</button>
+  </div>
+}
 
 const darkTheme = createTheme({
   palette: {
@@ -47,6 +57,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <HeaderComponent />
       <div className="main-page">
         {/* <div>
           <h1>Data from Firebase</h1>

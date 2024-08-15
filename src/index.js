@@ -7,22 +7,21 @@ import App from './App';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
 import store from './Store/store';
+import common_en from "../src/translations/en/common.json"
+import common_fn from "../src/translations/fn/common.json"
+import i18next from 'i18next';
 
-i18n.init({
+i18next.init({
   interpolation: { escapeValue: false },
-  lng: 'en',
+  lng: 'en',                             
   resources: {
     en: {
-      translation: {
-        'welcomeMessage': 'Welcome to my app!'
-      }
+      common: common_en              
     },
-    fr: {
-      translation: {
-        'welcomeMessage': 'Bienvenue dans mon application !'
-      }
-    }
-  }
+    de: {
+      common: common_fn
+    },
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
