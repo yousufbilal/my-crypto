@@ -1,5 +1,10 @@
 {
-    "welcome": {
-        "title": "Welcome to {{framework}}"
-    }
+    "compare": "Compare",
+    "image": "Image",
+    "coin_symbol": "Coin Symbol",
+    "coin_name": "Coin Name",
+    "coin_current_price": "Coin Current Price",
+    "coin_market_cap": "Coin Market Cap",
+    "coin_percentage_change": "Coin Percentage Change",
+    "coin_last_update": "Coin Last Update"
 }

@@ -1,5 +1,10 @@
 {
-    "welcome": {
-        "title": "Bienvenue à {{framework}}"
-    }
+    "compare": "Comparar",
+    "image": "Imagen",
+    "coin_symbol": "Símbolo de la Moneda",
+    "coin_name": "Nombre de la Moneda",
+    "coin_current_price": "Precio Actual de la Moneda",
+    "coin_market_cap": "Capitalización de Mercado",
+    "coin_percentage_change": "Cambio Porcentual",
+    "coin_last_update": "Última Actualización"
 }

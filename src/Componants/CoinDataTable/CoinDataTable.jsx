@@ -16,8 +16,11 @@ import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import { addCoinStatusUpdate } from "../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
 import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
+import { useTranslation } from "react-i18next";
 
 const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
+  const { t, i18n } = useTranslation("common");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories, status } = useSelector((state) => state.coinList);
@@ -29,6 +32,14 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
     dispatch(addCoinStatusUpdate(coin.id));
     navigate("/about", { state: { coin, coinHistoricPrice } });
   };
+
+  // function HeaderComponent() {
+  //   const { t, i18n } = useTranslation("common");
+  //   return <div>
+  //     <button onClick={() => i18n.changeLanguage('fn')}>fn</button>
+  //     <button onClick={() => i18n.changeLanguage('en')}>en</button>
+  //   </div>
+  // }
 
   // useEffect(() => {
   //   const storedCategories = localStorage.getItem("user");
@@ -61,6 +72,9 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
 
   return (
     <>
+      <Button onClick={() => i18n.changeLanguage("fn")}>fn</Button>
+      <Button onClick={() => i18n.changeLanguage("en")}>en</Button>
+
       {isLoading ? (
         <div className="card-container">
           <Skeleton height={50} width={"90%"} />
@@ -98,16 +112,15 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
                     Compare
                   </Button>
                 </TableCell>
-                <TableCell>Image</TableCell>
-                <TableCell>Coin Symbol</TableCell>
-                <TableCell>Coin Name</TableCell>
-                <TableCell>Coin Current Price</TableCell>
-                <TableCell>Coin Market Cap</TableCell>
-                <TableCell>Coin Percentage Change</TableCell>
-                <TableCell>Coin Last Update</TableCell>
+                <TableCell>{t("image")}</TableCell>
+                <TableCell>{t("coin_symbol")}</TableCell>
+                <TableCell>{t("coin_name")}</TableCell>
+                <TableCell>{t("coin_current_price")}</TableCell>
+                <TableCell>{t("coin_market_cap")}</TableCell>
+                <TableCell>{t("coin_percentage_change")}</TableCell>
+                <TableCell>{t("coin_last_update")}</TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>
               {LocalStorageFunc().map((coin) => (
                 <TableRow

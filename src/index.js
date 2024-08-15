@@ -18,7 +18,7 @@ i18next.init({
     en: {
       common: common_en              
     },
-    de: {
+    fn: {
       common: common_fn
     },
   },
@@ -26,7 +26,6 @@ i18next.init({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
   <I18nextProvider i18n={i18n}>
     <React.StrictMode>
       <Provider store={store}>
@@ -38,5 +37,4 @@ root.render(
       </Provider>
     </React.StrictMode>
   </I18nextProvider>,
-
 );
