@@ -25,7 +25,7 @@ const Header = ({ currentGoogleUser }) => {
 
   const value = sessionStorage.getItem("sessionKey");
   const testParseJson = JSON.parse(value);
-  console.log(testParseJson.displayName);
+  console.log(testParseJson);
 
   // useEffect(() => {
   //   const value = sessionStorage.getItem("sessionKey");
@@ -92,12 +92,6 @@ const Header = ({ currentGoogleUser }) => {
           flexDirection: "column"
         }}
       >
-        {/* {userDataRedux.displayName ? (
-          <Typography> {userDataRedux?.displayName} </Typography>
-        ) : (
-          <Typography>no name</Typography>
-        )} */}
-
         <Box
           sx={{
             display: "flex",
