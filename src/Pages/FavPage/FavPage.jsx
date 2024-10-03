@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Container,
@@ -8,17 +8,37 @@ import {
   Box,
   Avatar
 } from "@mui/material";
+import { getDatabase } from "firebase/database";
+import { ref, set, get } from "firebase/database";
+import { useSSR } from "react-i18next";
 
 const FavPage = () => {
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
+  const favAccountHolder = location.state?.currenAccountUser;
+  const favAccountHolderName = location.state?.currenAccountUserName;
+  const favAccountHolderPassword = location.state?.currenAccountUserPassword;
 
-  console.log("yousuf");
+  const db = getDatabase();
+  const userRef = ref(db, `users/${favAccountHolder}`);
+  const userDataResponse =  get(userRef);
+  // const userData = userDataResponse.val();
+
+  useEffect(() => {
+
+
+    set(userRef, {
+      userName: favAccountHolderName,
+      userPassWord: favAccountHolderPassword,
+      // currentFavList: location.state?.favCoins
+      currentFavList: testFavCoin
+    });
+  }, []);
 
   return (
     <Container sx={{ border: "1px solid #ECEEF1", padding: "16px" }}>
       <Typography variant="h4" gutterBottom>
-        Favorite Coins
+        {favAccountHolder} Favorite Coins
       </Typography>
       <Box
         sx={{

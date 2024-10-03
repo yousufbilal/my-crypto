@@ -5,11 +5,8 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { addCoinList } from "../../Store/Features/coinListSlice/coinListSlice";
 import { useDispatch, useSelector } from "react-redux";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import { border } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 
 const SearchBar = () => {
   const [filterData, setFilterData] = useState([]);
@@ -23,7 +20,8 @@ const SearchBar = () => {
 
   const userInput = (e) => {
     let userData = e.target.value.toLowerCase();
-    const filtered = categories.filter((item) =>
+    // const filtered = categories.filter((item) =>
+    const filtered = LocalStorageFunc().filter((item) =>
       item.name.toLowerCase().includes(userData)
     );
     setFilterData(filtered);
@@ -48,21 +46,39 @@ const SearchBar = () => {
         alignItems={"center"}
         // marginTop={"80px"}
       >
-        <TextField
-          onChange={(e) => userInput(e)}
-          label="Search"
-          variant="outlined"
-          fullWidth
-        />
-        <SearchIcon />
-
-        {filterData.length > 0
-          ? filterData.map((filterCoin) => (
-              <Box onClick={() => handleReturn(filterCoin)}>
-                <Box>{filterCoin.name}</Box>
-              </Box>
-            ))
-          : null}
+        <Box>
+          <TextField
+            onChange={(e) => userInput(e)}
+            label="Search"
+            variant="outlined"
+            fullWidth
+            autoComplete="off"
+          />
+          <Box position={"fixed"}>
+            {filterData.length > 0
+              ? filterData.map((filterCoin) => (
+                  <Box onClick={() => handleReturn(filterCoin)}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "#F9F6EE",
+                        width: "150px",
+                        height: "50px",
+                        border: "1px solid #ECEEF1",
+                        borderRadius: "5px",
+                        marginTop: "5px"
+                      }}
+                    >
+                      {filterCoin.name}
+                    </Box>
+                  </Box>
+                ))
+              : null}
+          </Box>
+        </Box>
+        {/* <SearchIcon /> */}
       </Box>
     </Box>
   );

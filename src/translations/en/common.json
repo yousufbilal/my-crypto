@@ -6,5 +6,6 @@
     "coin_current_price": "Coin Current Price",
     "coin_market_cap": "Coin Market Cap",
     "coin_percentage_change": "Coin Percentage Change",
-    "coin_last_update": "Coin Last Update"
+    "coin_last_update": "Coin Last Update",
+    "trending-coin": "Trending Coins"
 }

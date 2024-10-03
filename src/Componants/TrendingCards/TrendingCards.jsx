@@ -1,16 +1,18 @@
 import { Box, border } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoinTrending } from "../../Store/Features/coinTrending/coinTrending"; // correct import path
+import { addCoinTrending } from "../../Store/Features/coinTrending/coinTrending";
 import { TableBody, TableCell, TableContainer, TableHead } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
+import { useTranslation } from "react-i18next";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const TrendingCards = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation("common");
 
-  const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector((state) => state.coinTrending);
-
+  const { trending } = useSelector((state) => state.coinTrending);
+  
   const coinPriceFormat = () => {
     let coinPrice = 0;
     if (trending && trending.coins) {
@@ -59,7 +61,7 @@ const TrendingCards = () => {
             "scrollbar-width": "none"
           }}
         >
-          <h3>Trending Coins</h3>
+          <h3 className="trending-coin">Trending Coins</h3>
           {trending && trending.coins ? (
             <Box>
               {trending.coins.map((item) => (
@@ -124,5 +126,3 @@ const TrendingCards = () => {
 };
 
 export default TrendingCards;
-
-//fetch('https://api.coingecko.com/api/v3/search/trending', options)

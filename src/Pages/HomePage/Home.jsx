@@ -7,16 +7,32 @@ import NFTCards from "../../Componants/NFTCards/NFTCards";
 import DeFiCard from "../../Componants/DeFiCard/DeFiCard";
 import "./Home.css";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Home = () => {
+  const location = useLocation();
+  const currenAccountUser = location?.state?.currentUser;
+  const currenAccountUserName = location?.state?.currentUser;
+  // const currenAccountUserPassword = location?.state?.user;
+  const currentGoogleUser = location?.state?.usernav;
+  const test = useSelector((state) => state.counter.userData);
+
   const [favCoins, setFavCoins] = useState([]);
   const navigate = useNavigate();
 
   const favButtonHandler = () => {
-    navigate("/FavPage", { state: { favCoins } });
+    navigate("/FavPage", {
+      state: {
+        favCoins,
+        currenAccountUser,
+        currenAccountUserName
+        // currenAccountUserPassword
+      }
+    });
   };
+
   return (
     <Box
       display="flex"
@@ -49,7 +65,7 @@ export const Home = () => {
             background: "#ADD8E6"
           }}
         >
-          <Header />
+          <Header currentGoogleUser={currentGoogleUser} />
         </Box>
 
         {/* Main Content */}
@@ -83,6 +99,7 @@ export const Home = () => {
                   setFavCoins={setFavCoins}
                   favCoins={favCoins}
                   favButtonHandler={favButtonHandler}
+                  currenAccountUser={currenAccountUser}
                 />
               </Box>
             </Box>

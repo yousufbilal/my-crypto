@@ -5,27 +5,9 @@ import { LoginPage } from "./Pages/LoginPage/LoginPage";
 import FavPage from "./Pages/FavPage/FavPage";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { getDatabase, ref, onValue, off } from "firebase/database";
-import app from "./fireBaseDataBase";
+import { app } from "./fireBaseDataBase";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next"
 import "./App.css";
-
-function HeaderComponent() {
-  const { t, i18n } = useTranslation("common");
-  return <div>
-    <button onClick={() => i18n.changeLanguage('fn')}>fn</button>
-    <button onClick={() => i18n.changeLanguage('en')}>en</button>
-  </div>
-}
-
-// function HeaderComponent() {
-//   const { t, i18n } = useTranslation("common");
-//   return <div>
-//     <h1>{t('welcome.title', { framework: 'React' })}</h1>
-//     <button onClick={() => i18n.changeLanguage('de')}>de</button>
-//     <button onClick={() => i18n.changeLanguage('en')}>en</button>
-//   </div>
-// }
 
 const darkTheme = createTheme({
   palette: {
@@ -34,7 +16,7 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [data, setData] = useState(null); // Use null initially if data is not an array
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const database = getDatabase(app);
@@ -64,18 +46,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      {/* <HeaderComponent /> */}
       <div className="main-page">
-        {/* <div>
-          <h1>Data from Firebase</h1>
-          <ul>
-            {data !== null ? ( // Render based on data existence
-              <li>{data}</li> // Directly render the data
-            ) : (
-              <li>No data available</li> // Fallback message
-            )}
-          </ul>
-        </div> */}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<Home />} />

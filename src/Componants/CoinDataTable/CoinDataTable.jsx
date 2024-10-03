@@ -17,8 +17,24 @@ import { Button } from "@mui/material";
 import { addCoinStatusUpdate } from "../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
 import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 import { useTranslation } from "react-i18next";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { Box, border } from "@mui/system";
+import {Typography} from "@mui/material";
 
-const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
+const CoinDataTable = ({
+  setFavCoins,
+  favCoins,
+  favButtonHandler,
+  currenAccountUser
+}) => {
+  const [selectedPage, setSelectedPage] = useState([]);
+  const [coinList, setCoinList] = useState([]);
+
+  const [currentList, setCurrentList] = useState([]);
+
+  const [paginationListIndex, setPaginationListIndex] = useState(0);
+
   const { t, i18n } = useTranslation("common");
 
   const navigate = useNavigate();
@@ -26,29 +42,10 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
   const { categories, status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
 
-  // const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
-
   const handleReturn = (coin) => {
     dispatch(addCoinStatusUpdate(coin.id));
     navigate("/about", { state: { coin, coinHistoricPrice } });
   };
-
-  // function HeaderComponent() {
-  //   const { t, i18n } = useTranslation("common");
-  //   return <div>
-  //     <button onClick={() => i18n.changeLanguage('fn')}>fn</button>
-  //     <button onClick={() => i18n.changeLanguage('en')}>en</button>
-  //   </div>
-  // }
-
-  // useEffect(() => {
-  //   const storedCategories = localStorage.getItem("user");
-  //   if (storedCategories) {
-  //     setLocalCategories(JSON.parse(storedCategories));
-  //   } else {
-  //     dispatch(addCoinList());
-  //   }
-  // }, [dispatch]);
 
   useEffect(() => {
     if (LocalStorageFunc()) {
@@ -68,6 +65,19 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
     } else {
       setFavCoins((prevFavCoins) => [coinData, ...prevFavCoins]);
     }
+  };
+
+  useEffect(() => {
+    const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc())); //deep copying to not modify the orignal array
+    setCoinList(tempCurrentList);
+    setCurrentList(tempCurrentList.slice(0, 5));
+  }, []);
+
+  const paginationClick = (page) => {
+    let currentTempList = JSON.parse(JSON.stringify(coinList)); //deep copying to not modify the orignal array
+    const nextListIndex = page == 1 ? 0 : (page - 1) * 5;
+    const tempCurrentList = currentTempList.splice(nextListIndex, 5); // this line
+    setCurrentList(tempCurrentList);
   };
 
   return (
@@ -94,8 +104,8 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
             stickyHeader
             style={{
               border: "1px solid #ddd",
-              borderSpacing: "0", // Remove spacing between cells
-              tableLayout: "fixed" // Ensures consistent row height
+              borderSpacing: "0",
+              tableLayout: "fixed"
             }}
           >
             <TableHead>
@@ -122,7 +132,8 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {LocalStorageFunc().map((coin) => (
+              {/* {categories.map((coin) => ( */}
+              {currentList?.map((coin) => (
                 <TableRow
                   key={coin.id}
                   onClick={() => handleReturn(coin)}
@@ -179,6 +190,14 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
               ))}
             </TableBody>
           </Table>
+          <Box display="flex" justifyContent="center">
+            <Stack spacing={2}>
+              <Pagination
+                count={10}
+                onChange={(event, page) => paginationClick(page)}
+              />
+            </Stack>
+          </Box>
         </TableContainer>
       )}
     </>

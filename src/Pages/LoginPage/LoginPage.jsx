@@ -6,31 +6,44 @@ import screenshot2 from "../../Assests/screenshot2.png";
 import bitcoinAnimation from "../../Assests/bitcoinAnimation.gif";
 import { ref, set, get } from "firebase/database";
 import { getDatabase } from "firebase/database";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import PasswordSignUp from "../../Componants/PasswordSignUp/PasswordSignUp";
+import GoogleSignUp from "../../Componants/GoogleSignUp/GoogleSignUp";
 
 export const LoginPage = () => {
+  const location = useLocation();
+  const testFavCoin = location.state?.favCoins;
   const [userName, setUserName] = useState("");
   const [userPassWord, setUserPassword] = useState("");
+  // const [currentUser, setCurrentUser] = useState("");
+  const [currentFavList, setCurrentFavList] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {}, []);
 
   const writeUserData = async () => {
     const db = getDatabase();
 
-    const usersRef = ref(db, "users");
-    const snapshot = await get(usersRef);
-    const usersData = snapshot.val();
+    const userRef = ref(db, `users/${userName}`);
+    const userDataResponse = await get(userRef);
+    const userData = userDataResponse.val();
 
-    const userArray = Object.values(usersData);
-
-    let test = userArray.some((name) => {
-      return name.userName === userName;
-    });
-
-    if (!test) {
-      await set(ref(db, `users/${userName}`), {
+    if (userData) {
+      if (userData.userPassWord === userData.userPassWord) {
+        // setCurrentUser(userData.userName);
+        let currentUser = userData.userName;
+        console.log("user found");
+        // console.log(currentUser);
+        // navigate("/home", { state: { currentUser, userName, userPassWord } });
+      }
+    } else {
+      console.log("create a user");
+      await set(userRef, {
         userName: userName,
         userPassWord: userPassWord
+        // currentFavList: testFavCoin
       });
-    } else {
-      console.log("exists");
     }
   };
 
@@ -68,19 +81,22 @@ export const LoginPage = () => {
                 }}
               />
             </Box>
-            <TextField
+            {/* <TextField
               onChange={(e) => setUserName(e.target.value)}
               placeholder="user name"
               value={userName} // Controlled input
-            />
+            /> */}
 
-            <TextField
+            {/* <TextField
               onChange={(e) => setUserPassword(e.target.value)}
               placeholder="password"
               value={userPassWord} // Controlled input
-            />
+            /> */}
 
-            <Link
+            {/* <PasswordSignUp/> */}
+            <GoogleSignUp />
+
+            {/* <Link
             // to={"/home"}
             >
               <Button
@@ -89,7 +105,7 @@ export const LoginPage = () => {
               >
                 Submit
               </Button>
-            </Link>
+            </Link> */}
           </Box>
         </Box>
       </Box>
