@@ -1,14 +1,39 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 import { border, height } from "@mui/system";
 import BitcoinLogo from "../../Assests/BitcoinLogo.svg";
 import SearchBar from "../Atoms/SearchBar";
 import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import React, { useEffect, useState } from "react";
 
 const Header = ({ currentGoogleUser }) => {
   // console.log(currentGoogleUser ? currentGoogleUser : "no data");
   const userDataRedux = useSelector((state) => state.counter.userData);
+
+  // const convertingtoJson = JSON.stringify(userDataRedux);
+  // sessionStorage.setItem("sessionKey", convertingtoJson);
+  // const value = sessionStorage.getItem("sessionKey");
+  // const testParseJson = JSON.parse(value);
+  // console.log(testParseJson);
+
+  useEffect(() => {
+    if (userDataRedux) {
+      const convertingtoJson = JSON.stringify(userDataRedux);
+      sessionStorage.setItem("sessionKey", convertingtoJson);
+    }
+  }, [userDataRedux]);
+
+  const value = sessionStorage.getItem("sessionKey");
+  const testParseJson = JSON.parse(value);
+  console.log(testParseJson.displayName);
+
+  // useEffect(() => {
+  //   const value = sessionStorage.getItem("sessionKey");
+  //   if (value) {
+  //     const testParseJson = JSON.parse(value);
+  //     console.log(testParseJson);
+  //   }
+  // }, []);
 
   return (
     <Box
@@ -81,9 +106,9 @@ const Header = ({ currentGoogleUser }) => {
           }}
         >
           <Box>
-            {userDataRedux && userDataRedux.photoURL ? (
+            {testParseJson && testParseJson.photoURL ? (
               <img
-                src={userDataRedux.photoURL}
+                src={testParseJson.photoURL}
                 width={50}
                 height={50}
                 style={{
@@ -95,13 +120,13 @@ const Header = ({ currentGoogleUser }) => {
                 alt="User profile"
               />
             ) : (
-              "user name error "
+              "image error"
             )}
           </Box>
 
           <Typography>
-            {userDataRedux && userDataRedux.displayName
-              ? userDataRedux.displayName
+            {testParseJson.displayName && testParseJson.displayName
+              ? testParseJson.displayName
               : "user name error "}
           </Typography>
         </Box>
