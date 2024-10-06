@@ -65,7 +65,7 @@ export const Home = () => {
             background: "#ADD8E6"
           }}
         >
-          <Header currentGoogleUser={currentGoogleUser} />
+          <Header />
         </Box>
 
         {/* Main Content */}

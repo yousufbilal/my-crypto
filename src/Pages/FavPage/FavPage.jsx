@@ -11,6 +11,7 @@ import {
 import { getDatabase } from "firebase/database";
 import { ref, set, get } from "firebase/database";
 import { useSSR } from "react-i18next";
+import Header from "../../Componants/Header/Header";
 
 const FavPage = () => {
   const location = useLocation();
@@ -19,26 +20,26 @@ const FavPage = () => {
   const favAccountHolderName = location.state?.currenAccountUserName;
   const favAccountHolderPassword = location.state?.currenAccountUserPassword;
 
-  const db = getDatabase();
-  const userRef = ref(db, `users/${favAccountHolder}`);
-  const userDataResponse =  get(userRef);
-  // const userData = userDataResponse.val();
+  // const db = getDatabase();
+  // const userRef = ref(db, `users/${favAccountHolder}`);
+  // const userDataResponse = get(userRef);
+  // // const userData = userDataResponse.val();
 
-  useEffect(() => {
-
-
-    set(userRef, {
-      userName: favAccountHolderName,
-      userPassWord: favAccountHolderPassword,
-      // currentFavList: location.state?.favCoins
-      currentFavList: testFavCoin
-    });
-  }, []);
+  // useEffect(() => {
+  //   set(userRef, {
+  //     userName: favAccountHolderName,
+  //     userPassWord: favAccountHolderPassword,
+  //     // currentFavList: location.state?.favCoins
+  //     currentFavList: testFavCoin
+  //   });
+  // }, []);
 
   return (
     <Container sx={{ border: "1px solid #ECEEF1", padding: "16px" }}>
+      <Header />
+
       <Typography variant="h4" gutterBottom>
-        {favAccountHolder} Favorite Coins
+        {/* {favAccountHolder} Favorite Coins */}
       </Typography>
       <Box
         sx={{

@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useEffect, useState } from "react";
 
-const Header = ({ currentGoogleUser }) => {
-  // console.log(currentGoogleUser ? currentGoogleUser : "no data");
+const Header = () => {
   const userDataRedux = useSelector((state) => state.counter.userData);
 
   // const convertingtoJson = JSON.stringify(userDataRedux);
@@ -73,12 +72,6 @@ const Header = ({ currentGoogleUser }) => {
           alt="Bitcoin Logo"
           style={{ height: "100%", width: "50px" }}
         />
-
-        {/* {currentGoogleUser ? (
-          <Typography> {currentGoogleUser} </Typography>
-        ) : (
-          <Typography>no name</Typography>
-        )} */}
       </Box>
 
       <Box>
