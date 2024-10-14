@@ -13,8 +13,8 @@ import { useSelector } from "react-redux";
 
 export const Home = () => {
   const location = useLocation();
-  const currenAccountUser = location?.state?.currentUser;
-  const currenAccountUserName = location?.state?.currentUser;
+  // const currenAccountUser = location?.state?.currentUser;
+  // const currenAccountUserName = location?.state?.currentUser;
   // const currenAccountUserPassword = location?.state?.user;
   const currentGoogleUser = location?.state?.usernav;
   const test = useSelector((state) => state.counter.userData);
@@ -26,8 +26,8 @@ export const Home = () => {
     navigate("/FavPage", {
       state: {
         favCoins,
-        currenAccountUser,
-        currenAccountUserName
+        // currenAccountUser,
+        // currenAccountUserName
         // currenAccountUserPassword
       }
     });
@@ -99,7 +99,7 @@ export const Home = () => {
                   setFavCoins={setFavCoins}
                   favCoins={favCoins}
                   favButtonHandler={favButtonHandler}
-                  currenAccountUser={currenAccountUser}
+                  // currenAccountUser={currenAccountUser}
                 />
               </Box>
             </Box>

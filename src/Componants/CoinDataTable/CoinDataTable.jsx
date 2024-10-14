@@ -20,13 +20,26 @@ import { useTranslation } from "react-i18next";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, border } from "@mui/system";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+  setDoc
+} from "firebase/firestore";
+
+import { db } from "../../fireBaseDataBase";
+
+import { useLocation } from "react-router-dom";
 
 const CoinDataTable = ({
   setFavCoins,
   favCoins,
-  favButtonHandler,
-  currenAccountUser
+  favButtonHandler
+  // currenAccountUser
 }) => {
   const [selectedPage, setSelectedPage] = useState([]);
   const [coinList, setCoinList] = useState([]);
@@ -34,6 +47,10 @@ const CoinDataTable = ({
   const [currentList, setCurrentList] = useState([]);
 
   const [paginationListIndex, setPaginationListIndex] = useState(0);
+
+  const value = sessionStorage.getItem("sessionKey");
+  const testParseJson = JSON.parse(value);
+  // console.log(testParseJson.uid);
 
   const { t, i18n } = useTranslation("common");
 
@@ -80,6 +97,42 @@ const CoinDataTable = ({
     setCurrentList(tempCurrentList);
   };
 
+  // const testFavCoin = location.state?.favCoins;
+
+  const updateData = async () => {
+    const docRef = await updateDoc(collection(db, "users"), { favCoins });
+  };
+
+  // const addData = async () => {
+  //   const docRef = await addDoc(collection(db, "users"), { favCoins });
+  //   console.log("Document written with ID: ", docRef.id);
+  // };
+
+  const addData = async () => {
+    const docRef = doc(db, "users", testParseJson.uid);
+    await setDoc(docRef, { favCoins });
+    console.log("Document written with custom ID: ");
+  };
+
+  // const getData = async () => {
+  //   const docRef = collection(db, "users");
+  //   const docSnap = await getDocs(docRef);
+
+  //   docSnap.docs.map((value) => {
+  //     console.log(value.id);
+  //   });
+  // };
+
+  const getData = async () => {
+    const docRef = doc(db, "users");
+    const docSnap = await getDocs(docRef);
+    console.log(docSnap.docs.keyedMap.root.value.data.favCoins);
+    //  docSnap.docs.map((value) => {
+    //     console.log(value.id);
+
+    //   })
+  };
+
   return (
     <>
       <Button onClick={() => i18n.changeLanguage("fn")}>fn</Button>
@@ -119,7 +172,7 @@ const CoinDataTable = ({
                     sx={{ border: "1px solid #ECEEF1", fontSize: "15px" }}
                     onClick={() => favButtonHandler()}
                   >
-                    Compare
+                    Favorities
                   </Button>
                 </TableCell>
                 <TableCell>{t("image")}</TableCell>
@@ -153,9 +206,12 @@ const CoinDataTable = ({
                       }}
                     >
                       <Checkbox
-                        onClick={() => favSelect(coin)}
-                        icon={<StarBorder style={{ fontSize: "30px" }} />}
-                        checkedIcon={<Star style={{ fontSize: "20px" }} />}
+                        onClick={() => {
+                          favSelect(coin);
+                          addData();
+                        }}
+                        icon={<StarBorder />}
+                        checkedIcon={<Star />}
                       />
                     </div>
                   </TableCell>

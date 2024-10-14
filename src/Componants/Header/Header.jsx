@@ -7,6 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useEffect, useState } from "react";
 
 const Header = () => {
+
   const userDataRedux = useSelector((state) => state.counter.userData);
 
   // const convertingtoJson = JSON.stringify(userDataRedux);
@@ -24,7 +25,8 @@ const Header = () => {
 
   const value = sessionStorage.getItem("sessionKey");
   const testParseJson = JSON.parse(value);
-  console.log(testParseJson);
+
+
 
   // useEffect(() => {
   //   const value = sessionStorage.getItem("sessionKey");
