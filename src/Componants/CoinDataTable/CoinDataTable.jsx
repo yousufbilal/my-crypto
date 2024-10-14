@@ -19,44 +19,23 @@ import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 import { useTranslation } from "react-i18next";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Box, border } from "@mui/system";
-import { Typography } from "@mui/material";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  updateDoc,
-  setDoc
-} from "firebase/firestore";
+import { Box } from "@mui/system";
+import { doc, setDoc } from "firebase/firestore";
 
 import { db } from "../../fireBaseDataBase";
 
-import { useLocation } from "react-router-dom";
-
-const CoinDataTable = ({
-  setFavCoins,
-  favCoins,
-  favButtonHandler
-  // currenAccountUser
-}) => {
-  const [selectedPage, setSelectedPage] = useState([]);
+const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
   const [coinList, setCoinList] = useState([]);
-
   const [currentList, setCurrentList] = useState([]);
-
-  const [paginationListIndex, setPaginationListIndex] = useState(0);
 
   const value = sessionStorage.getItem("sessionKey");
   const testParseJson = JSON.parse(value);
-  // console.log(testParseJson.uid);
 
   const { t, i18n } = useTranslation("common");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { categories, status } = useSelector((state) => state.coinList);
+  const { status } = useSelector((state) => state.coinList);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
 
   const handleReturn = (coin) => {
@@ -97,41 +76,11 @@ const CoinDataTable = ({
     setCurrentList(tempCurrentList);
   };
 
-  // const testFavCoin = location.state?.favCoins;
-
-  const updateData = async () => {
-    const docRef = await updateDoc(collection(db, "users"), { favCoins });
-  };
-
   // const addData = async () => {
-  //   const docRef = await addDoc(collection(db, "users"), { favCoins });
-  //   console.log("Document written with ID: ", docRef.id);
+  //   const docRef = doc(db, "users", testParseJson.uid);
+  //   await setDoc(docRef, { favCoins });
+  //   console.log("Document written with custom ID: ");
   // };
-
-  const addData = async () => {
-    const docRef = doc(db, "users", testParseJson.uid);
-    await setDoc(docRef, { favCoins });
-    console.log("Document written with custom ID: ");
-  };
-
-  // const getData = async () => {
-  //   const docRef = collection(db, "users");
-  //   const docSnap = await getDocs(docRef);
-
-  //   docSnap.docs.map((value) => {
-  //     console.log(value.id);
-  //   });
-  // };
-
-  const getData = async () => {
-    const docRef = doc(db, "users");
-    const docSnap = await getDocs(docRef);
-    console.log(docSnap.docs.keyedMap.root.value.data.favCoins);
-    //  docSnap.docs.map((value) => {
-    //     console.log(value.id);
-
-    //   })
-  };
 
   return (
     <>
@@ -208,7 +157,7 @@ const CoinDataTable = ({
                       <Checkbox
                         onClick={() => {
                           favSelect(coin);
-                          addData();
+                          // addData();
                         }}
                         icon={<StarBorder />}
                         checkedIcon={<Star />}

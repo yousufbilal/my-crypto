@@ -26,9 +26,6 @@ export const Home = () => {
     navigate("/FavPage", {
       state: {
         favCoins,
-        // currenAccountUser,
-        // currenAccountUserName
-        // currenAccountUserPassword
       }
     });
   };
