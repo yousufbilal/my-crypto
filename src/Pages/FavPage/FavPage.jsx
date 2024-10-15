@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Container,
@@ -6,7 +6,10 @@ import {
   Card,
   CardContent,
   Box,
-  Avatar
+  Avatar,
+  Input,
+  TextField,
+  Button
 } from "@mui/material";
 import Header from "../../Componants/Header/Header";
 import { db } from "../../fireBaseDataBase";
@@ -17,23 +20,43 @@ import {
   getDoc,
   deleteDoc,
   doc,
-  updateDoc
+  updateDoc,
+  setDoc
 } from "firebase/firestore";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { type } from "@testing-library/user-event/dist/type";
+import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
 
 const FavPage = () => {
   const [userID, setUserID] = useState();
   const [num1, setNum1] = useState();
-  const [changeList, setChangeList] = useState();
+  const [changeList, setChangeList] = useState("");
+  const [newListInput, setNewListInput] = useState("");
 
   const [listOfDocs, setListOfDocs] = useState();
 
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
 
+  const userDataRedux = useSelector((state) => state.counter.userData);
+
+  useEffect(() => {
+    if (userDataRedux) {
+      const convertingtoJson = JSON.stringify(userDataRedux);
+      sessionStorage.setItem("sessionKey", convertingtoJson);
+    }
+  }, [userDataRedux]);
+
+  const value = sessionStorage.getItem("sessionKey");
+  const testParseJson = JSON.parse(value);
+
+  // console.log(testParseJson.uid);
+
+  // useEffect(() => {
+  //   setUserID(userDataRedux.uid);
+  // }, [userID]);
+
   const getDocumentsList = async () => {
-    const docRef = collection(db, "users");
+    const docRef = collection(db, testParseJson.uid);
     const docSnap = await getDocs(docRef);
 
     const documentNames = docSnap?.docs?.map((doc) => {
@@ -43,6 +66,10 @@ const FavPage = () => {
     setListOfDocs(documentNames);
   };
 
+  useEffect(() => {
+    getDocumentsList();
+  }, []);
+
   // const deleteData = async () => {
   //   const docRef = doc(db, "users", "YepcwMAJ8u4hS2gOhEP1");
   //   await deleteDoc(docRef);
@@ -50,35 +77,28 @@ const FavPage = () => {
   // };
 
   const getData = async () => {
-    // const docRef = collection(db, "users");
-    const docRef = doc(db, "users", changeList);
+    const docRef = doc(db, testParseJson.uid, changeList);
     const docSnap = await getDoc(docRef);
-    // const processedData = docSnap?.docs?.map((doc) => {
-    //   return doc.data();
+    let test = docSnap.data();
+
+    // let mapObj = test?.map((value) => {
+    //   return value.name;
     // });
-
-    console.log(docSnap.data());
-
-    // let furtherMap = processedData[0]?.testFavCoin?.map((value) => {
-    //   return value;
-    // });
-
-    // setNum1(furtherMap);
-
-    // console.log(furtherMap);
+    console.log(test);
   };
 
   const addData = async () => {
-    const docRef = await addDoc(collection(db, "users"), { testFavCoin });
-    setUserID(docRef.id);
+    // const docRef = await addDoc(collection(db, "users"), { testFavCoin });
 
+    const docRef = doc(db, testParseJson.uid, newListInput);
+    await setDoc(docRef, { testFavCoin });
     console.log("Document written with ID: ", docRef.id);
   };
 
   const updateData = async () => {
-    const docRef = doc(db, "users", "S6VvZtZo2pgoPm2o1v5f");
+    const docRef = doc(db, testParseJson.uid, changeList);
     const result = await updateDoc(docRef, { testFavCoin });
-    console.log("Document updated successfully", result);
+    console.log("Document updated successfully");
   };
 
   const testMethod = (docID, index) => {
@@ -89,15 +109,36 @@ const FavPage = () => {
     }
   };
 
+  const addPortfolio = async () => {
+    const docRef = doc(db, testParseJson.uid, newListInput);
+    await setDoc(docRef, {});
+  };
+
   return (
     <Container sx={{ border: "1px solid #ECEEF1", padding: "16px" }}>
       <Header />
 
       <button onClick={() => getDocumentsList()}>All List</button>
-
       <button onClick={() => addData()}>Make New List</button>
       <button onClick={() => updateData()}>Update button</button>
       <button onClick={() => getData()}>Get button</button>
+
+      <CardContent sx={{ height: 500, width: 500, border: "5px solid black" }}>
+        <TextField
+          onChange={(e) => setNewListInput(e.target.value)}
+          sx={{ width: "100%" }}
+          placeholder="Enter your new portfolio name"
+        />
+        <Button
+          sx={{ border: "1px solid black", width: "100%", marginTop: "20px" }}
+          onClick={() => {
+            addPortfolio();
+            // addData();
+          }}
+        >
+          submit{" "}
+        </Button>
+      </CardContent>
 
       <Typography>
         {listOfDocs ? (

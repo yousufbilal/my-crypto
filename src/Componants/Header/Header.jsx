@@ -10,6 +10,7 @@ const Header = () => {
 
   const userDataRedux = useSelector((state) => state.counter.userData);
 
+
   // const convertingtoJson = JSON.stringify(userDataRedux);
   // sessionStorage.setItem("sessionKey", convertingtoJson);
   // const value = sessionStorage.getItem("sessionKey");

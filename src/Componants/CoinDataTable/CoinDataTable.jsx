@@ -121,7 +121,7 @@ const CoinDataTable = ({ setFavCoins, favCoins, favButtonHandler }) => {
                     sx={{ border: "1px solid #ECEEF1", fontSize: "15px" }}
                     onClick={() => favButtonHandler()}
                   >
-                    Favorities
+                    Portfolio
                   </Button>
                 </TableCell>
                 <TableCell>{t("image")}</TableCell>

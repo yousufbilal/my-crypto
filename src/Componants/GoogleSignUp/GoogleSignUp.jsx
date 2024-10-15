@@ -17,6 +17,8 @@ const GoogleSignUp = () => {
   const handelLogin = async () => {
     try {
       let result = await signInWithPopup(auth, provider);
+
+      console.log(result);
       dispatch(
         setUserData({
           displayName: result.user.displayName,

@@ -19,13 +19,14 @@ export const Home = () => {
   const currentGoogleUser = location?.state?.usernav;
   const test = useSelector((state) => state.counter.userData);
 
+
   const [favCoins, setFavCoins] = useState([]);
   const navigate = useNavigate();
 
   const favButtonHandler = () => {
     navigate("/FavPage", {
       state: {
-        favCoins,
+        favCoins
       }
     });
   };
