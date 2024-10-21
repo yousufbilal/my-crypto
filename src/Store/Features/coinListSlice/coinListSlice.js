@@ -15,12 +15,6 @@ export const addCoinList = createAsyncThunk(
   }
 );
 
-// const testFunc = () => {
-//   let testVariable = localStorage.getItem("user");
-//   let testVav = JSON.parse(testVariable);
-//   return testVav
-// };
-
 const coinListSlice = createSlice({
   name: "coinList",
   initialState: {

@@ -8,7 +8,6 @@ import {
   Divider
 } from "@mui/material";
 import { Box } from "@mui/system";
-
 const CoinCommunity = ({ statusUpdate }) => {
   return (
     <Card
@@ -25,8 +24,8 @@ const CoinCommunity = ({ statusUpdate }) => {
         "&::-webkit-scrollbar": {
           display: "none"
         },
-        "msoverflowstyle": "none",
-        "scrollbarwidth": "none"
+        msoverflowstyle: "none",
+        scrollbarwidth: "none"
       }}
       onMouseEnter={(e) => (e.currentTarget.style.overflow = "auto")}
       onMouseLeave={(e) => (e.currentTarget.style.overflow = "hidden")}

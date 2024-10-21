@@ -37,7 +37,6 @@ const FavPage = () => {
 
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
-
   const userDataRedux = useSelector((state) => state.counter.userData);
 
   useEffect(() => {
@@ -74,18 +73,27 @@ const FavPage = () => {
     console.log("Document updated successfully");
   };
 
-  const getData = async () => {
-    const docRef = doc(db, testParseJson.uid, changeList);
+  // const getData = async () => {
+  //   const docRef = doc(db, testParseJson.uid, changeList);
+  //   const docSnap = await getDoc(docRef);
+  //   const data = docSnap.data();
+
+  //   if (data && data.testFavCoin) {
+  //     setNum1(data.testFavCoin); // Store the full objects
+  //   }
+  // };
+
+
+
+  const testMethod = async (docID, index) => {
+    setChangeList(docID);
+    const docRef = doc(db, testParseJson.uid, docID);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
 
     if (data && data.testFavCoin) {
       setNum1(data.testFavCoin); // Store the full objects
     }
-  };
-
-  const testMethod = (docID, index) => {
-    setChangeList(docID);
   };
 
   const addPortfolio = async () => {
@@ -141,7 +149,7 @@ const FavPage = () => {
             <Button onClick={() => getDocumentsList()}>All List</Button>
             <Button onClick={() => addData()}>Make New List</Button>
             <Button onClick={() => updateData()}>Update</Button>
-            <Button onClick={() => getData()}>Get Data</Button>
+            {/* <Button onClick={() => getData()}>Get Data</Button> */}
           </ButtonGroup>
 
           {/* Create New Portfolio */}

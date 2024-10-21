@@ -9,6 +9,7 @@ import { CoinOverView } from "../../Componants/CoinOverView/CoinOverView";
 import CoinMarketView from "../../Componants/CoinMarketView/CoinMarketView";
 import CoinCommunity from "../../Componants/CoinCommunity/CoinCommunity";
 import MyResponsiveLine from "../../Componants/MyResponsiveLine/MyResponsiveLine";
+import { LocalStorageFunc } from "../../Componants/Atoms/LocalStorageFunc";
 
 export const About = ({ coinHistoricPrice }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ export const About = ({ coinHistoricPrice }) => {
   // const newCoin = location.state?.filterCoin;
   const coinPrice = location.state?.coinHistoricPrice;
   const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
+
+  const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc()));
+  // console.log(tempCurrentList) //deep copying to not modify the orignal array
 
   useEffect(() => {
     dispatch(fetchCoinHistoricPrice(coin?.id));
@@ -74,7 +78,7 @@ export const About = ({ coinHistoricPrice }) => {
                 sx={{ backgroundColor: "#ECEEF1", padding: 3 }}
               >
                 <CoinOverView statusUpdate={statusUpdate} />
-                <CoinMarketView statusUpdate={statusUpdate} />
+                <CoinMarketView statusUpdate={tempCurrentList} />
                 <CoinCommunity statusUpdate={statusUpdate} />
               </Box>
 

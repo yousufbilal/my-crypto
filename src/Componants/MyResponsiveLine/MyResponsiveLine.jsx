@@ -5,31 +5,7 @@ import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 
 const MyResponsiveLine = ({ coinPrice }) => {
   const [dataPoints, setDataPoints] = useState([]);
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-
-  console.log(storedUser.prices);
-
-  const testData = [
-    [1728486875212, 61935.669410618335],
-    [1728489898867, 62273.12429552298],
-    [1728493501805, 61752.45976427412],
-    [1728497307131, 61786.15413301724],
-    [1728500750631, 61117.826773189954]
-  ];
-
-  // useEffect(() => {
-  //   const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc()));
-  //   console.log(tempCurrentList);
-  // }, []);
-
-  // useEffect(() => {
-  //   const formattedData = coinPrice?.prices?.map((value) => ({
-  //     x: new Date(value[0]).toISOString(),
-  //     y: value[1]
-  //   }));
-
-  //   setDataPoints(formattedData);
-  // }, [coinPrice]);
+  const storedUser = JSON.parse(localStorage.getItem("userPrice"));
 
   useEffect(() => {
     const formattedData = storedUser.prices?.map((value) => ({
