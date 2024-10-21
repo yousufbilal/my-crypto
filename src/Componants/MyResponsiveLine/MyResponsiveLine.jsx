@@ -1,38 +1,56 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useEffect, useState } from "react";
 import "./MyResponsiveLine.css";
+import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 
 const MyResponsiveLine = ({ coinPrice }) => {
-  const [prices, setPrices] = useState([]);
-  const [timeStamp, setTimeStamp] = useState([]);
+  const [dataPoints, setDataPoints] = useState([]);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  console.log(storedUser.prices);
+
+  const testData = [
+    [1728486875212, 61935.669410618335],
+    [1728489898867, 62273.12429552298],
+    [1728493501805, 61752.45976427412],
+    [1728497307131, 61786.15413301724],
+    [1728500750631, 61117.826773189954]
+  ];
+
+  // useEffect(() => {
+  //   const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc()));
+  //   console.log(tempCurrentList);
+  // }, []);
+
+  // useEffect(() => {
+  //   const formattedData = coinPrice?.prices?.map((value) => ({
+  //     x: new Date(value[0]).toISOString(),
+  //     y: value[1]
+  //   }));
+
+  //   setDataPoints(formattedData);
+  // }, [coinPrice]);
 
   useEffect(() => {
-    if (coinPrice && coinPrice.prices) {
-      setPrices(coinPrice.prices.map(([timeStamp, prices]) => prices));
-      setTimeStamp(coinPrice.prices.map(([timeStamp, prices]) => timeStamp.toString()));
-    } else {
-      console.log("coinprice not preesnt");
-    }
-  }, [coinPrice]);
+    const formattedData = storedUser.prices?.map((value) => ({
+      x: new Date(value[0]).toISOString(),
+      y: value[1]
+    }));
+    setDataPoints(formattedData);
+  }, []);
 
-  console.log(timeStamp, prices);
-
-  // setTimeStamp(coinPrice.map(([timeStamp, price]) => timeStamp));
   const data = [
     {
-      id: "japan",
-      color: "hsl(148, 70%, 50%)",
-      data: [
-        { x: "plane", y: 217 },
-        { x: "helicopter", y: 218 },
-        { x: "boat", y: 82 },
-      ]
+      id: "Prices",
+      color: "#00ff00",
+      data: dataPoints
     }
   ];
 
   return (
-    <div className="nivo-line-container">
+    <div style={{ height: "100vh" }} className="nivo-line-container">
       <ResponsiveLine
+        style={{ width: "100 vw" }}
         data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: "point" }}
@@ -50,7 +68,7 @@ const MyResponsiveLine = ({ coinPrice }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: "Timestamp",
           legendOffset: 36,
           legendPosition: "middle"
         }}
@@ -58,7 +76,7 @@ const MyResponsiveLine = ({ coinPrice }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "Price",
           legendOffset: -40,
           legendPosition: "middle"
         }}

@@ -5,11 +5,10 @@ import SearchBar from "../Atoms/SearchBar";
 import { useSelector } from "react-redux";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, { useEffect, useState } from "react";
+import GoogleLogout from "../GoogleLogout/GoogleLogout";
 
 const Header = () => {
-
   const userDataRedux = useSelector((state) => state.counter.userData);
-
 
   // const convertingtoJson = JSON.stringify(userDataRedux);
   // sessionStorage.setItem("sessionKey", convertingtoJson);
@@ -26,8 +25,6 @@ const Header = () => {
 
   const value = sessionStorage.getItem("sessionKey");
   const testParseJson = JSON.parse(value);
-
-
 
   // useEffect(() => {
   //   const value = sessionStorage.getItem("sessionKey");
@@ -115,10 +112,14 @@ const Header = () => {
           </Box>
 
           <Typography>
-            {testParseJson.displayName && testParseJson.displayName
-              ? testParseJson.displayName
+            {testParseJson?.displayName && testParseJson?.displayName
+              ? testParseJson?.displayName
               : "user name error "}
           </Typography>
+
+          <Box>
+            <GoogleLogout />
+          </Box>
         </Box>
       </Box>
     </Box>

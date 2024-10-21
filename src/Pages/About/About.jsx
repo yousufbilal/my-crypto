@@ -78,7 +78,7 @@ export const About = ({ coinHistoricPrice }) => {
                 <CoinCommunity statusUpdate={statusUpdate} />
               </Box>
 
-              <Box sx={{ padding: "20px" }}>
+              <Box border={"5px solid #EBEEF1"} borderRadius={"5px "}>
                 <MyResponsiveLine coinPrice={coinPrice} />
               </Box>
             </Box>

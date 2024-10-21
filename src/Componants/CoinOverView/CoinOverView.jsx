@@ -16,8 +16,8 @@ export const CoinOverView = ({ statusUpdate }) => {
         "&::-webkit-scrollbar": {
           display: "none"
         },
-        "-ms-overflow-style": "none",
-        "scrollbar-width": "none"
+        "msoverflowstyle": "none",
+        "scrollbarwidth": "none"
       }}
       onMouseEnter={(e) => e.currentTarget.style.overflow = "auto"}
       onMouseLeave={(e) => e.currentTarget.style.overflow = "hidden"}

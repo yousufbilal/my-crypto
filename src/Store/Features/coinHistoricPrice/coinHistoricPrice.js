@@ -6,6 +6,7 @@ export const fetchCoinHistoricPrice = createAsyncThunk(
   async (coinId, { rejectWithValue }) => {
     try {
       const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
+      localStorage.setItem("user", JSON.stringify(response.data))
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

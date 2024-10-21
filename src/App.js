@@ -30,7 +30,6 @@ function App() {
       if (value) {
         setData(value); // Set the actual value directly
       } else {
-        console.log("No data found");
         setData(null); // Clear data
       }
     }, (error) => {

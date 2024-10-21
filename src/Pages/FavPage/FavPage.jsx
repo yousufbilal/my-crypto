@@ -3,36 +3,37 @@ import { useLocation } from "react-router-dom";
 import {
   Container,
   Typography,
-  Card,
-  CardContent,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
   Box,
-  Avatar,
-  Input,
   TextField,
-  Button
+  Button,
+  Avatar,
+  ButtonGroup,
+  Paper,
+  Divider
 } from "@mui/material";
 import Header from "../../Componants/Header/Header";
 import { db } from "../../fireBaseDataBase";
 import {
   collection,
-  addDoc,
   getDocs,
   getDoc,
-  deleteDoc,
   doc,
-  updateDoc,
-  setDoc
+  setDoc,
+  updateDoc
 } from "firebase/firestore";
-import AddIcon from "@mui/icons-material/Add";
 import { useSelector } from "react-redux";
+import SideBar from "../SideBar/SideBar";
 
 const FavPage = () => {
-  const [userID, setUserID] = useState();
-  const [num1, setNum1] = useState();
+  const [num1, setNum1] = useState([]);
   const [changeList, setChangeList] = useState("");
   const [newListInput, setNewListInput] = useState("");
-
-  const [listOfDocs, setListOfDocs] = useState();
+  const [listOfDocs, setListOfDocs] = useState([]);
 
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
@@ -49,20 +50,11 @@ const FavPage = () => {
   const value = sessionStorage.getItem("sessionKey");
   const testParseJson = JSON.parse(value);
 
-  // console.log(testParseJson.uid);
-
-  // useEffect(() => {
-  //   setUserID(userDataRedux.uid);
-  // }, [userID]);
-
   const getDocumentsList = async () => {
     const docRef = collection(db, testParseJson.uid);
     const docSnap = await getDocs(docRef);
 
-    const documentNames = docSnap?.docs?.map((doc) => {
-      return doc.id;
-    });
-
+    const documentNames = docSnap?.docs?.map((doc) => doc.id);
     setListOfDocs(documentNames);
   };
 
@@ -70,26 +62,7 @@ const FavPage = () => {
     getDocumentsList();
   }, []);
 
-  // const deleteData = async () => {
-  //   const docRef = doc(db, "users", "YepcwMAJ8u4hS2gOhEP1");
-  //   await deleteDoc(docRef);
-  //   console.log(`Document with ID ${userID} deleted successfully.`);
-  // };
-
-  const getData = async () => {
-    const docRef = doc(db, testParseJson.uid, changeList);
-    const docSnap = await getDoc(docRef);
-    let test = docSnap.data();
-
-    // let mapObj = test?.map((value) => {
-    //   return value.name;
-    // });
-    console.log(test);
-  };
-
   const addData = async () => {
-    // const docRef = await addDoc(collection(db, "users"), { testFavCoin });
-
     const docRef = doc(db, testParseJson.uid, newListInput);
     await setDoc(docRef, { testFavCoin });
     console.log("Document written with ID: ", docRef.id);
@@ -97,16 +70,22 @@ const FavPage = () => {
 
   const updateData = async () => {
     const docRef = doc(db, testParseJson.uid, changeList);
-    const result = await updateDoc(docRef, { testFavCoin });
+    await updateDoc(docRef, { testFavCoin });
     console.log("Document updated successfully");
   };
 
-  const testMethod = (docID, index) => {
-    if (index === 0) {
-      setChangeList(docID);
-    } else {
-      setChangeList(docID);
+  const getData = async () => {
+    const docRef = doc(db, testParseJson.uid, changeList);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+
+    if (data && data.testFavCoin) {
+      setNum1(data.testFavCoin); // Store the full objects
     }
+  };
+
+  const testMethod = (docID, index) => {
+    setChangeList(docID);
   };
 
   const addPortfolio = async () => {
@@ -115,93 +94,166 @@ const FavPage = () => {
   };
 
   return (
-    <Container sx={{ border: "1px solid #ECEEF1", padding: "16px" }}>
-      <Header />
-
-      <button onClick={() => getDocumentsList()}>All List</button>
-      <button onClick={() => addData()}>Make New List</button>
-      <button onClick={() => updateData()}>Update button</button>
-      <button onClick={() => getData()}>Get button</button>
-
-      <CardContent sx={{ height: 500, width: 500, border: "5px solid black" }}>
-        <TextField
-          onChange={(e) => setNewListInput(e.target.value)}
-          sx={{ width: "100%" }}
-          placeholder="Enter your new portfolio name"
-        />
-        <Button
-          sx={{ border: "1px solid black", width: "100%", marginTop: "20px" }}
-          onClick={() => {
-            addPortfolio();
-            // addData();
-          }}
-        >
-          submit{" "}
-        </Button>
-      </CardContent>
-
-      <Typography>
-        {listOfDocs ? (
-          listOfDocs.map((docId, index) => (
-            <Typography key={index} onClick={() => testMethod(docId, index)}>
-              {docId}
-            </Typography>
-          ))
-        ) : (
-          <Typography>No documents found.</Typography>
-        )}
-      </Typography>
-
-      <Typography variant="h4" gutterBottom></Typography>
+    <Box
+      display="flex"
+      flexDirection="row"
+      overflow="hidden"
+      sx={{
+        background: "#f7f7f7",
+        height: "100vh",
+        width: "100vw",
+        position: "relative"
+      }}
+    >
+      {/* Header */}
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "16px",
-          justifyContent: "center"
+          width: "100%",
+          height: "60px",
+          position: "fixed",
+          top: 0,
+          zIndex: 10,
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+          background: "#2196F3"
         }}
       >
-        {num1 &&
-          num1.map((coin) => (
-            <Card key={coin.id} sx={{ width: 300 }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 120,
-                  width: 120,
-                  margin: "16px auto"
-                }}
-              >
-                {/* what is the avatar used for check  */}
-                <Avatar
-                  src={coin.image}
-                  alt={coin.name}
-                  sx={{ height: "100%", width: "100%" }}
-                />
-              </Box>
-              <CardContent>
-                <Box>{coin.name}</Box>
-                <Box>Symbol: {coin.symbol.toUpperCase()}</Box>
-                <Box>Current Price: ${coin.current_price.toLocaleString()}</Box>
-                <Box>Market Cap: ${coin.market_cap.toLocaleString()}</Box>
-                <Box>24h High: ${coin.high_24h.toLocaleString()}</Box>
-                <Box>24h Low: ${coin.low_24h.toLocaleString()}</Box>
-                <Box>ATH: ${coin.ath.toLocaleString()}</Box>
-                <Box>ATL: ${coin.atl.toLocaleString()}</Box>
-                <Box>
-                  24h Change: {coin.price_change_percentage_24h.toFixed(2)}%
-                </Box>
-                <Box>
-                  Max Supply:{" "}
-                  {coin.max_supply ? coin.max_supply.toLocaleString() : "N/A"}
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
+        <Header />
       </Box>
-    </Container>
+
+      {/* Main Content Area */}
+      <Box
+        display="flex"
+        flexDirection="row"
+        width={"100vw"}
+        sx={{
+          paddingTop: "60px",
+          border: "1px solid red"
+        }}
+      >
+        {/* Sidebar */}
+        <Box sx={{ minWidth: "25px", background: "#ADD8E6" }}>
+          <SideBar />
+        </Box>
+
+        <Box display="flex" flexDirection="column" width="100%" p={4}>
+          {/* Button Actions */}
+          <ButtonGroup variant="contained" sx={{ marginBottom: "20px" }}>
+            <Button onClick={() => getDocumentsList()}>All List</Button>
+            <Button onClick={() => addData()}>Make New List</Button>
+            <Button onClick={() => updateData()}>Update</Button>
+            <Button onClick={() => getData()}>Get Data</Button>
+          </ButtonGroup>
+
+          {/* Create New Portfolio */}
+          <Paper
+            elevation={3}
+            sx={{ padding: "16px", maxWidth: "500px", marginBottom: "20px" }}
+          >
+            <Typography variant="h6" gutterBottom>
+              Create New Portfolio
+            </Typography>
+            <TextField
+              onChange={(e) => setNewListInput(e.target.value)}
+              fullWidth
+              placeholder="Enter new portfolio name"
+              variant="outlined"
+              sx={{ marginBottom: "16px" }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => addPortfolio()}
+            >
+              Submit
+            </Button>
+          </Paper>
+
+          {/* Portfolio List */}
+          <Box mb={4}>
+            <Typography variant="h6" gutterBottom>
+              Portfolio List
+            </Typography>
+            {listOfDocs.length > 0 ? (
+              listOfDocs.map((docId, index) => (
+                <Typography
+                  key={index}
+                  onClick={() => testMethod(docId, index)}
+                  sx={{
+                    cursor: "pointer",
+                    padding: "12px",
+                    backgroundColor: "#f5f5f5",
+                    marginBottom: "8px",
+                    borderRadius: "4px",
+                    "&:hover": { backgroundColor: "#ddd" }
+                  }}
+                >
+                  {docId}
+                </Typography>
+              ))
+            ) : (
+              <Typography>No documents found.</Typography>
+            )}
+          </Box>
+
+          {/* Table */}
+          <Divider sx={{ marginBottom: "20px" }} />
+          <Table sx={{ marginTop: "20px", backgroundColor: "#fff" }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Coin</TableCell>
+                <TableCell>Symbol</TableCell>
+                <TableCell>Current Price</TableCell>
+                <TableCell>Market Cap</TableCell>
+                <TableCell>24h High</TableCell>
+                <TableCell>24h Low</TableCell>
+                <TableCell>ATH</TableCell>
+                <TableCell>ATL</TableCell>
+                <TableCell>24h Change (%)</TableCell>
+                <TableCell>Max Supply</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {num1 &&
+                num1.map((coin, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:hover": { background: "#f9f9f9" } }}
+                  >
+                    <TableCell>
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Avatar
+                          src={coin.image}
+                          alt={coin.name}
+                          sx={{ marginRight: "8px" }}
+                        />
+                        {coin.name}
+                      </Box>
+                    </TableCell>
+                    <TableCell>{coin.symbol.toUpperCase()}</TableCell>
+                    <TableCell>
+                      ${coin.current_price.toLocaleString()}
+                    </TableCell>
+                    <TableCell>${coin.market_cap.toLocaleString()}</TableCell>
+                    <TableCell>${coin.high_24h.toLocaleString()}</TableCell>
+                    <TableCell>${coin.low_24h.toLocaleString()}</TableCell>
+                    <TableCell>${coin.ath.toLocaleString()}</TableCell>
+                    <TableCell>${coin.atl.toLocaleString()}</TableCell>
+                    <TableCell>
+                      {coin.price_change_percentage_24h.toFixed(2)}%
+                    </TableCell>
+                    <TableCell>
+                      {coin.max_supply
+                        ? coin.max_supply.toLocaleString()
+                        : "N/A"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

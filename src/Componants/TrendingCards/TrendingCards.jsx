@@ -12,7 +12,7 @@ const TrendingCards = () => {
   const { t, i18n } = useTranslation("common");
 
   const { trending } = useSelector((state) => state.coinTrending);
-  
+
   const coinPriceFormat = () => {
     let coinPrice = 0;
     if (trending && trending.coins) {
@@ -57,63 +57,62 @@ const TrendingCards = () => {
             "&::-webkit-scrollbar": {
               display: "none"
             },
-            "-ms-overflow-style": "none",
-            "scrollbar-width": "none"
+            msoverflowstyle: "none",
+            scrollbarwidth: "none"
           }}
         >
           <h3 className="trending-coin">Trending Coins</h3>
           {trending && trending.coins ? (
             <Box>
-              {trending.coins.map((item) => (
-                <>
-                  <li
+              {trending.coins.map((item, index) => (
+                <li
+                  key={index}
+                  style={{
+                    width: "100%",
+                    justifyContent: "space-between",
+                    display: "flex",
+                    flexDirection: "row",
+                    borderRadius: "5px",
+                    marginBottom: "20px",
+                    border: "1px solid #ddd",
+                    padding: "10px"
+                  }}
+                >
+                  <img
+                    src={item.item.small}
                     style={{
-                      width: "100%",
-                      justifyContent: "space-between",
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "5px"
+                    }}
+                  />
+                  <div
+                    style={{
                       display: "flex",
-                      flexDirection: "row",
-                      borderRadius: "5px",
-                      marginBottom: "20px",
-                      border: "1px solid #ddd",
-                      padding: "10px"
+                      alignItems: "center",
+                      paddingLeft: "10px"
                     }}
                   >
-                    <img
-                      src={item.item.small}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "5px"
-                      }}
-                    />
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        paddingLeft: "10px"
-                      }}
-                    >
-                      {item.item.symbol}
-                    </div>
-                    <Box
-                      width={"100%"}
-                      justifyContent={"center"}
-                      display={"flex"}
-                      alignItems={"center"}
-                    >
-                      <div>usd ${item.item.data.price.toFixed(2)}</div>
-                    </Box>
-                    <img
-                      src={item.item.data.sparkline}
-                      alt={`Sparkline for ${item.name}`}
-                      style={{
-                        borderRadius: "5px",
-                        width: "auto",
-                        height: "auto"
-                      }}
-                    />
-                  </li>
-                </>
+                    {item.item.symbol}
+                  </div>
+                  <Box
+                    width={"100%"}
+                    justifyContent={"center"}
+                    display={"flex"}
+                    alignItems={"center"}
+                  >
+                    <div>usd ${item.item.data.price.toFixed(2)}</div>
+                  </Box>
+                  <img
+                    src={item.item.data.sparkline}
+                    alt={`Sparkline for ${item.name}`}
+                    style={{
+                      borderRadius: "5px",
+                      width: "auto",
+                      height: "auto"
+                    }}
+                  />
+                </li>
               ))}
             </Box>
           ) : (

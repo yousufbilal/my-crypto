@@ -1,4 +1,4 @@
-import { Box, border } from "@mui/system";
+import { Box } from "@mui/system";
 import SideBar from "../SideBar/SideBar";
 import CoinDataTable from "../../Componants/CoinDataTable/CoinDataTable";
 import Header from "../../Componants/Header/Header";
@@ -18,7 +18,6 @@ export const Home = () => {
   // const currenAccountUserPassword = location?.state?.user;
   const currentGoogleUser = location?.state?.usernav;
   const test = useSelector((state) => state.counter.userData);
-
 
   const [favCoins, setFavCoins] = useState([]);
   const navigate = useNavigate();

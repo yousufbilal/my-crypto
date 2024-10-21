@@ -30,8 +30,8 @@ const NFTCards = () => {
         "&::-webkit-scrollbar": {
           display: "none"
         },
-        "-ms-overflow-style": "none",
-        "scrollbar-width": "none"
+        "msoverflowstyle": "none",
+        "scrollbarwidth": "none"
       }}
     >
       <h3>Trending NFTCards</h3>
