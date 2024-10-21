@@ -14,7 +14,10 @@ import {
   Avatar,
   ButtonGroup,
   Paper,
-  Divider
+  Divider,
+  Card,
+  CardMedia,
+  CardContent
 } from "@mui/material";
 import Header from "../../Componants/Header/Header";
 import { db } from "../../fireBaseDataBase";
@@ -34,6 +37,7 @@ const FavPage = () => {
   const [changeList, setChangeList] = useState("");
   const [newListInput, setNewListInput] = useState("");
   const [listOfDocs, setListOfDocs] = useState([]);
+  const [addcoinPopup, setAddcoinPopup] = useState(false);
 
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
@@ -59,12 +63,11 @@ const FavPage = () => {
 
   useEffect(() => {
     getDocumentsList();
-  }, []);
+  }, [listOfDocs]);
 
-  const addData = async () => {
+  const newListMethod = async () => {
     const docRef = doc(db, testParseJson.uid, newListInput);
     await setDoc(docRef, { testFavCoin });
-    console.log("Document written with ID: ", docRef.id);
   };
 
   const updateData = async () => {
@@ -72,18 +75,6 @@ const FavPage = () => {
     await updateDoc(docRef, { testFavCoin });
     console.log("Document updated successfully");
   };
-
-  // const getData = async () => {
-  //   const docRef = doc(db, testParseJson.uid, changeList);
-  //   const docSnap = await getDoc(docRef);
-  //   const data = docSnap.data();
-
-  //   if (data && data.testFavCoin) {
-  //     setNum1(data.testFavCoin); // Store the full objects
-  //   }
-  // };
-
-
 
   const testMethod = async (docID, index) => {
     setChangeList(docID);
@@ -99,6 +90,10 @@ const FavPage = () => {
   const addPortfolio = async () => {
     const docRef = doc(db, testParseJson.uid, newListInput);
     await setDoc(docRef, {});
+  };
+
+  const addCoinHandler = () => {
+    setAddcoinPopup(addcoinPopup === true ? false : true);
   };
 
   return (
@@ -145,37 +140,64 @@ const FavPage = () => {
 
         <Box display="flex" flexDirection="column" width="100%" p={4}>
           {/* Button Actions */}
-          <ButtonGroup variant="contained" sx={{ marginBottom: "20px" }}>
-            <Button onClick={() => getDocumentsList()}>All List</Button>
-            <Button onClick={() => addData()}>Make New List</Button>
-            <Button onClick={() => updateData()}>Update</Button>
-            {/* <Button onClick={() => getData()}>Get Data</Button> */}
-          </ButtonGroup>
 
-          {/* Create New Portfolio */}
-          <Paper
-            elevation={3}
-            sx={{ padding: "16px", maxWidth: "500px", marginBottom: "20px" }}
+          <Box
+            sx={{
+              display: "flex",
+              border: "1px solid red",
+              justifyContent: "space-between"
+            }}
           >
-            <Typography variant="h6" gutterBottom>
-              Create New Portfolio
-            </Typography>
-            <TextField
-              onChange={(e) => setNewListInput(e.target.value)}
-              fullWidth
-              placeholder="Enter new portfolio name"
-              variant="outlined"
-              sx={{ marginBottom: "16px" }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={() => addPortfolio()}
+            <ButtonGroup variant="contained" sx={{ marginBottom: "20px" }}>
+              {/* <Button onClick={() => getDocumentsList()}>All List</Button> */}
+              {/* <Button onClick={() => newListMethod()}>Make New List</Button> */}
+              <Button onClick={() => updateData()}>Update</Button>
+              {/* <Button onClick={() => addCoinHandler()}>Add Coin</Button> */}
+            </ButtonGroup>
+            <Paper
+              elevation={3}
+              sx={{ padding: "16px", maxWidth: "500px", marginBottom: "20px" }}
             >
-              Submit
-            </Button>
-          </Paper>
+              <Typography variant="h6" gutterBottom>
+                Create New Portfolio
+              </Typography>
+              <TextField
+                onChange={(e) => setNewListInput(e.target.value)}
+                fullWidth
+                placeholder="Enter new portfolio name"
+                variant="outlined"
+                sx={{ marginBottom: "16px" }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => addPortfolio()}
+              >
+                Submit
+              </Button>
+            </Paper>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "20px"
+              }}
+            >
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  component="img"
+                  alt="Sample Image"
+                  height="140"
+                  image="https://via.placeholder.com/150" // Placeholder image URL
+                />
+                <CardContent>Coins</CardContent>
+                <Button>Add Coins</Button>
+              </Card>
+            </Box>
+          </Box>
+
+          {/* coin card  */}
 
           {/* Portfolio List */}
           <Box mb={4}>
