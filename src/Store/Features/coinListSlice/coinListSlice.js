@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import coinGecko from "../../../https/Clients/coinGecko";
-import { LocalStorageFunc } from "../../../Componants/Atoms/LocalStorageFunc";
+import { LocalStorageFunc } from "../../../Componants/Utilities/LocalStorageFunc/LocalStorageFunc";
 
 export const addCoinList = createAsyncThunk(
   'coinList/addCoinList',

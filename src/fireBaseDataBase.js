@@ -3,16 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDyikkmFI6kx-cZg0Z27OikM0Htg37g-tg",
-  authDomain: "fir-databasecrypto.firebaseapp.com",
-  databaseURL: "https://fir-databasecrypto-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fir-databasecrypto",
-  storageBucket: "fir-databasecrypto.appspot.com",
-  messagingSenderId: "476653307089",
-  appId: "1:476653307089:web:aeadd26cf517fea56af1f0",
-  measurementId: "G-1JDB349V1E"
+  apiKey: "AIzaSyAe8KraOvOanItlM6TjZTswZDl1AC4MRWw",
+  authDomain: "crypto-database-2.firebaseapp.com",
+  databaseURL: "https://crypto-database-2-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "crypto-database-2",
+  storageBucket: "crypto-database-2.firebasestorage.app",
+  messagingSenderId: "643505920436",
+  appId: "1:643505920436:web:261a07b90f82736a057ae1"
 };
 
 // Initialize Firebase
@@ -21,9 +19,4 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-
-export { app, auth, database,db };
-
-
-
+export { app, auth, database, db };

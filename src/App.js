@@ -1,13 +1,25 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "./Pages/HomePage/Home";
-import { About } from "./Pages/About/About";
-import { LoginPage } from "./Pages/LoginPage/LoginPage";
-import FavPage from "./Pages/FavPage/FavPage";
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { Home } from "./Componants/Pages/HomePage/Home"
+import { About } from "./Componants/Pages/About/About"
+import { LoginPage } from "./Componants/Pages/LoginPage/LoginPage"
+import FavPage from "./Componants/Pages/FavPage/FavPage"
+import { ThemeProvider, createTheme, CssBaseline, Box } from "@mui/material";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { app } from "./fireBaseDataBase";
 import { useState, useEffect } from "react";
-import "./App.css";
+import SideBar from "./Componants/Molecules/SideBar/SideBar";
+import Header from "./Componants/Organism/Header/Header";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  browserSessionPersistence,
+  setPersistence,
+  onAuthStateChanged,
+  signOut
+} from "firebase/auth";
+import { current } from "@reduxjs/toolkit";
+import ProtectedRoute from "./Componants/Molecules/ProtectedRoute/ProtectedRoute";
 
 const darkTheme = createTheme({
   palette: {
@@ -15,44 +27,44 @@ const darkTheme = createTheme({
   },
 });
 
+
 function App() {
-  const [data, setData] = useState(null);
+  const auth = getAuth(app);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const [test, setTest] = useState(null)
 
   useEffect(() => {
-    const database = getDatabase(app);
-    const dataRef = ref(database, "gym"); // Accessing "gym" path
-
-    // Set up a listener to fetch data from Firebase
-    const unsubscribe = onValue(dataRef, (snapshot) => {
-      const value = snapshot.val();
-      // console.log("Data snapshot:", value);
-
-      if (value) {
-        setData(value); // Set the actual value directly
-      } else {
-        setData(null); // Clear data
-      }
-    }, (error) => {
-      console.error("Error fetching data:", error);
+    sessionStorage.clear();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      navigate("/home");
     });
-
-    // Clean up the listener when component unmounts
-    return () => {
-      unsubscribe(); // Use the unsubscribe function returned by onValue
-    };
-  }, []);
+    return () => unsubscribe();
+  }, [auth]);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div className="main-page">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/favpage" element={<FavPage />} />
-        </Routes>
-      </div>
+      <Box display="flex" flexDirection="column" height="100vh">
+        <Header />
+        <Box display="flex" flexGrow={1}>
+          <SideBar />
+          {/* ************** */}
+          {/* Routes  */}
+          <Box className="content" flexGrow={1}>
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route element={<ProtectedRoute user={user} />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/favpage" element={<FavPage />} />
+              </Route>
+            </Routes>
+          </Box>
+          {/* ************** */}
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

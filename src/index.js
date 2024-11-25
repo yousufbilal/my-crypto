@@ -13,10 +13,10 @@ import i18next from 'i18next';
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: 'en',                             
+  lng: 'en',
   resources: {
     en: {
-      common: common_en              
+      common: common_en
     },
     fn: {
       common: common_fn
