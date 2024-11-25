@@ -50,7 +50,6 @@ function App() {
         <Header />
         <Box display="flex" flexGrow={1}>
           <SideBar />
-          {/* ************** */}
           {/* Routes  */}
           <Box className="content" flexGrow={1}>
             <Routes>
@@ -62,11 +61,11 @@ function App() {
               </Route>
             </Routes>
           </Box>
-          {/* ************** */}
         </Box>
       </Box>
     </ThemeProvider>
   );
 }
+
 
 export default App;
