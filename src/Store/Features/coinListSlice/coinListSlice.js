@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import coinGecko from "../../../https/Clients/coinGecko";
-import { LocalStorageFunc } from "../../../Componants/Utilities/LocalStorageFunc/LocalStorageFunc";
+
 
 export const addCoinList = createAsyncThunk(
   'coinList/addCoinList',
@@ -18,24 +18,25 @@ export const addCoinList = createAsyncThunk(
 const coinListSlice = createSlice({
   name: "coinList",
   initialState: {
-    categories: [],
-    errors: false,
-    status: "idle"
+    categories: [], //categoriesData
+    errors: false, //should be unique categoriesError
+    status: "idle" //categoriesLoading
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(addCoinList.pending, (state) => {
-        state.status = "loading";
-        state.categories = [];
+        state.categories = []; //categoriesData
+        state.status = "loading";  //categoriesLoading
+        //state.categoriesError = false
       })
       .addCase(addCoinList.fulfilled, (state, action) => {
-        state.categories = action.payload;
+        state.categories = action.payload;  //categoriesData
         state.status = "idle";
       })
       .addCase(addCoinList.rejected, (state, action) => {
-        state.status = "failed";
         state.errors = action.error.message;
+        state.status = "failed";
       });
   }
 })
