@@ -10,7 +10,7 @@ export const addCoinList = createAsyncThunk(
       localStorage.setItem("user", JSON.stringify(response.data))
       return response.data;
     } catch (error) {
-      throw error;
+      throw error
     }
   }
 );
@@ -22,7 +22,7 @@ const coinListSlice = createSlice({
     errors: false, //should be unique categoriesError
     status: "idle" //categoriesLoading
   },
-  reducers: {},
+  reducers:{},
   extraReducers: (builder) => {
     builder
       .addCase(addCoinList.pending, (state) => {
@@ -37,7 +37,7 @@ const coinListSlice = createSlice({
       .addCase(addCoinList.rejected, (state, action) => {
         state.errors = action.error.message;
         state.status = "failed";
-      });
+      })
   }
 })
 

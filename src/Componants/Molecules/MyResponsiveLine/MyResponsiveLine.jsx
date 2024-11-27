@@ -1,9 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useEffect, useState } from "react";
-import "./MyResponsiveLine.css";
-// import { LocalStorageFunc } from "../Atoms/LocalStorageFunc";
 
-const MyResponsiveLine = ({ coinPrice }) => {
+const MyResponsiveLine = () => {
   const [dataPoints, setDataPoints] = useState([]);
   const storedUser = JSON.parse(localStorage.getItem("userPrice"));
 

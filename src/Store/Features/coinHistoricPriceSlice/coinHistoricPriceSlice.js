@@ -1,18 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import coinGecko from '../../../https/Clients/coinGecko';
 
+//keep this
 export const fetchCoinHistoricPrice = createAsyncThunk(
   'historicPrice/fetchCoinHistoricPrice',
   async (coinId, { rejectWithValue }) => {
     try {
       const response = await coinGecko.get(`/coins/${coinId}/market_chart?vs_currency=usd&days=7`);
       localStorage.setItem("userPrice", JSON.stringify(response.data))
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
-);
+)
 
 const coinHistoricSlice = createSlice({
   name: 'historicPrice',

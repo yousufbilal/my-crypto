@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import coinGecko from "../../../https/Clients/coinGecko";
 
+//check if this is working or not 
 export const addCoinStatusUpdate = createAsyncThunk(
     'coinStatusUpdate/addCoinStatusUpdate',
     async (coinID) => {
         const response = await coinGecko.get(`coins/${coinID}`);
         // const response = await coinGecko.get('coins/bitcoin/market_chart?vs_currency=usd&days=1');
+        // console.log(response.data)
         return response.data;
     }
 );
-
 
 const coinStatusUpdateSlice = createSlice({
     name: 'coinStatusUpdate',

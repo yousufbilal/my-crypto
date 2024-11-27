@@ -45,7 +45,6 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
                 checkedIcon={<Star />}
               />
             </TableCell>
-
             <TableCell
               style={{ padding: "0", overflow: "hidden" }} // Remove padding and handle overflow
             >
@@ -54,24 +53,31 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
                 style={{ width: "50px", height: "50px" }}
               />
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.symbol}
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.name}
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.current_price.toFixed(2)}
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.market_cap.toFixed(2)}
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.price_change_percentage_24h.toFixed(2)}
             </TableCell>
+
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.last_updated}
             </TableCell>
+            
           </TableRow>
         ))}
       </TableBody>

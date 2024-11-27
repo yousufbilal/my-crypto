@@ -1,17 +1,16 @@
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoinTrending } from "../../../Store/Features/coinTrending/coinTrending";
+import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 import Skeleton from "react-loading-skeleton";
 import ImageAtom from "../../Atoms/ImageAtom/ImageAtom";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const TrendingCards = () => {
-  //this logic needs to be in home page 
+  //this logic needs to be in home page
   const dispatch = useDispatch();
   const { trending } = useSelector((state) => state.coinTrending);
-  // const { t, i18n } = useTranslation("common");
 
   const coinPriceFormat = () => {
     let coinPrice = 0;

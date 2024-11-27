@@ -3,12 +3,7 @@
 
   const CoinMarketView = ({ statusUpdate }) => {
     const marketData = statusUpdate?.market_data;
-    console.log(statusUpdate);
-
-  
     // was trying to get all the coins instead just focus 
-    
-
     return (
       <Card
         sx={{

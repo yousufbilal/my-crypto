@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoinTrending } from "../../../Store/Features/coinTrending/coinTrending";
+import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 import { Box } from "@mui/system";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 

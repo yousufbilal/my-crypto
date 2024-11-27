@@ -58,10 +58,12 @@ const FavPage = () => {
   const [addcoinPopup, setAddcoinPopup] = useState(false);
   const location = useLocation();
   const testFavCoin = location.state?.favCoins;
+
+
   const userDataRedux = useSelector((state) => state.counter.userData);
 
-  const [popup, setPopup] = useState(false);
 
+  const [popup, setPopup] = useState(false);
   const [fireBaseData, setFireBaseData] = useState("");
 
   useEffect(() => {
