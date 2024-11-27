@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { app } from "../../../fireBaseDataBase";
 
 const GoogleLogout = () => {

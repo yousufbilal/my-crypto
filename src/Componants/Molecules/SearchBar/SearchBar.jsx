@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { addCoinList } from "../../../Store/Features/coinListSlice/coinListSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
 
 const SearchBar = () => {
   const [filterData, setFilterData] = useState([]);
   const dispatch = useDispatch();
-  const { categories, status } = useSelector((state) => state.coinList);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +17,6 @@ const SearchBar = () => {
 
   const userInput = (e) => {
     let userData = e.target.value.toLowerCase();
-    // const filtered = categories.filter((item) =>
     const filtered = LocalStorageFunc().filter((item) =>
       item.name.toLowerCase().includes(userData)
     );
@@ -40,12 +36,7 @@ const SearchBar = () => {
         width: "300px"
       }}
     >
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        // marginTop={"80px"}
-      >
+      <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Box>
           <TextField
             onChange={(e) => userInput(e)}
@@ -78,7 +69,6 @@ const SearchBar = () => {
               : null}
           </Box>
         </Box>
-        {/* <SearchIcon /> */}
       </Box>
     </Box>
   );

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
-import EqualizerIcon from "@mui/icons-material/Equalizer";
 import HomeIcon from "@mui/icons-material/Home";
 
 const SideBar = ({ selected }) => {

@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/system";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { fetchCoinHistoricPrice } from "../../../Store/Features/coinHistoricPrice/coinHistoricPrice";
+import { fetchCoinHistoricPrice } from "../../../Store/Features/coinHistoricPriceSlice/coinHistoricPriceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { CoinOverView } from "../../Molecules/CoinOverView/CoinOverView";
 import CoinMarketView from "../../Organism/CoinMarketView/CoinMarketView";
@@ -81,7 +81,8 @@ export const About = ({ coinHistoricPrice }) => {
             </Box>
 
             <Box border={"5px solid #EBEEF1"} borderRadius={"5px "}>
-              <MyResponsiveLine coinPrice={coinPrice} />
+              <MyResponsiveLine />
+
             </Box>
           </Box>
         </Box>
