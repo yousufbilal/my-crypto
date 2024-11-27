@@ -18,6 +18,9 @@ export const counterSlice = createSlice({
     }
 })
 
+
+//see in feature trending
+
 export const { setUserData, clearUserData } = counterSlice.actions
 
 export default counterSlice.reducer
