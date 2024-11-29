@@ -1,21 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 import { Box } from "@mui/system";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 
-const TrendingCategories = () => {
-  const dispatch = useDispatch();
-  const { trending, coinTrendingStatus, coinTrendingErrors } = useSelector(
-    (state) => {
-      return state.coinTrending;
-    }
-  );
-
-  useEffect(() => {
-    dispatch(addCoinTrending());
-  }, []);
-
+const TrendingCategories = ({ trending }) => {
   return (
     <Box
       display="flex"
@@ -39,6 +26,7 @@ const TrendingCategories = () => {
     >
       <TyprographyAtom>Trending Categories</TyprographyAtom>
       <Box component="ol" sx={{ padding: 0, margin: 0 }}>
+
         {trending.categories?.map((item) => (
           <li
             key={item.id} // Make sure to add a unique key for each item

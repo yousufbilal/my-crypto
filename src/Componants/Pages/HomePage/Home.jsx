@@ -1,19 +1,26 @@
 import { Box } from "@mui/system";
 import CoinDataTable from "../../Organism/CoinDataTable/CoinDataTable";
 import TrendingContainer from "../../Organism/TrendingContainer/TrendingContainer";
-import React from "react";
-import { UseSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 
 export const Home = () => {
-//   const { categories, status } = useSelector((state) => state.coinList);
-// let test = {categories,status}
-// test.categories
-  //heavy lifiting and logic should be here 
-  //extra the slice data using redux selector
-  //use effect with 3 methods 
+  const dispatch = useDispatch();
+  const { trending, coinTrendingErrors, coinTrendingStatus } = useSelector(
+    (state) => state.coinTrending
+  );
+
+  //console.log(coinTrendingStatus)
+
+  //why do i need the dispatch here
+  useEffect(() => {
+    dispatch(addCoinTrending());
+  }, []);
+
   return (
     <Box display={"flex"} flexDirection={"column"} padding={"20px"}>
-      <TrendingContainer />
+      <TrendingContainer trending={trending} />
       <CoinDataTable />
     </Box>
   );

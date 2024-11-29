@@ -1,35 +1,11 @@
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 import Skeleton from "react-loading-skeleton";
 import ImageAtom from "../../Atoms/ImageAtom/ImageAtom";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const TrendingCards = () => {
-  //this logic needs to be in home page
-  const dispatch = useDispatch();
-  const { trending } = useSelector((state) => state.coinTrending);
-
-  const coinPriceFormat = () => {
-    let coinPrice = 0;
-    if (trending && trending.coins) {
-      trending.coins.map(
-        (item) => (coinPrice = item.item.data.price.toFixed(2))
-      );
-    }
-    return coinPrice;
-  };
-
-  useEffect(() => {
-    coinPriceFormat();
-  }, [trending]);
-
-  useEffect(() => {
-    dispatch(addCoinTrending());
-  }, [dispatch]);
-
+const TrendingCards = ({ trending }) => {
   return (
     <>
       {!trending ? (
@@ -97,13 +73,14 @@ const TrendingCards = () => {
                   >
                     {item.item.symbol}
                   </Box>
+
                   <Box
                     width={"100%"}
                     justifyContent={"center"}
                     display={"flex"}
                     alignItems={"center"}
                   >
-                    <Box>usd ${item.item.data.price.toFixed(2)}</Box>
+                    <Box>usd${item.item.data.price.toFixed(2)}</Box>
                   </Box>
 
                   <ImageAtom

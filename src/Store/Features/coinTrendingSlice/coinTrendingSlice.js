@@ -14,7 +14,6 @@ export const addCoinTrending = createAsyncThunk(
     }
 )
 
-
 const coinTrendingSlice = createSlice({
     name: 'coinTrending',
     initialState: {
