@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@mui/system";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 
@@ -24,13 +24,14 @@ const CardTrends = ({ trending, heading }) => {
         scrollbarwidth: "none"
       }}
     >
+      
       <TyprographyAtom>{heading}</TyprographyAtom>
 
-      <Box component="ol" sx={{ padding: 0, margin: 0 }}>
+      <Box sx={{ padding: 0, margin: 0 }}>
         {trending?.map((item) => (
           <Box>
             <li
-              key={item.id} // Make sure to add a unique key for each item
+              key={item.id} //Make sure to add a unique key for each item
               style={{
                 width: "100%",
                 display: "flex",

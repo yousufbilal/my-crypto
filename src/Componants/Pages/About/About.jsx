@@ -7,7 +7,7 @@ import { CoinOverView } from "../../Molecules/CoinOverView/CoinOverView";
 import CoinMarketView from "../../Organism/CoinMarketView/CoinMarketView";
 import CoinCommunity from "../../Molecules/CoinCommunity/CoinCommunity";
 import MyResponsiveLine from "../../Molecules/MyResponsiveLine/MyResponsiveLine";
-import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
+// import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
 
 export const About = ({ coinHistoricPrice }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const About = ({ coinHistoricPrice }) => {
   const coinPrice = location.state?.coinHistoricPrice;
   const { statusUpdate } = useSelector((state) => state.coinStatusUpdate);
 
-  const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc()));
+  // const tempCurrentList = JSON.parse(JSON.stringify(LocalStorageFunc()));
   // console.log(tempCurrentList) //deep copying to not modify the orignal array
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export const About = ({ coinHistoricPrice }) => {
               sx={{ backgroundColor: "#ECEEF1", padding: 3 }}
             >
               <CoinOverView statusUpdate={statusUpdate} />
-              <CoinMarketView statusUpdate={tempCurrentList} />
+              {/* <CoinMarketView statusUpdate={tempCurrentList} /> */}
               <CoinCommunity statusUpdate={statusUpdate} />
             </Box>
 

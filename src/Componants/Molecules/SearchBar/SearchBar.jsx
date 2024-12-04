@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import { addCoinList } from "../../../Store/Features/coinListSlice/coinListSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
+// import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
 
 const SearchBar = () => {
   const [filterData, setFilterData] = useState([]);
@@ -17,10 +17,10 @@ const SearchBar = () => {
 
   const userInput = (e) => {
     let userData = e.target.value.toLowerCase();
-    const filtered = LocalStorageFunc().filter((item) =>
-      item.name.toLowerCase().includes(userData)
-    );
-    setFilterData(filtered);
+    // const filtered = LocalStorageFunc().filter((item) =>
+    //   item.name.toLowerCase().includes(userData)
+    // );
+    // setFilterData(filtered);
   };
 
   const handleReturn = (filterCoin) => {
