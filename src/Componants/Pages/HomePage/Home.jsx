@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { addCoinList } from "../../../Store/Features/coinListSlice/coinListSlice";
 import { addCoinStatusUpdate } from "../../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
 
-
 export const Home = () => {
   const navigate = useNavigate();
   const [favCoins, setFavCoins] = useState([]);
@@ -19,8 +18,8 @@ export const Home = () => {
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
   const storedCategories = localStorage.getItem("user");
   const localCategories = JSON.parse(storedCategories);
-
   const dispatch = useDispatch();
+
   const { trendingData, trendingError, trendingLoading } = useSelector(
     (state) => state.coinTrending
   );
@@ -39,6 +38,7 @@ export const Home = () => {
 
   //here im populating the data from the api into the redux state
   const populateTrendingData = () => {
+    console.log("Test button reload");
     dispatch(addCoinTrending());
   };
 
@@ -84,6 +84,7 @@ export const Home = () => {
         trendingData={trendingData}
         trendingError={trendingError}
         trendingLoading={trendingLoading}
+        onReload={populateTrendingData}
       />
 
       <CoinDataTable

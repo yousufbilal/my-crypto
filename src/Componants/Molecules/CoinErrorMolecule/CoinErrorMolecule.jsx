@@ -1,8 +1,9 @@
 import React from "react";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 import { Box } from "@mui/system";
+import { Button } from "@mui/material";
 
-const CoinErrorMolecule = () => {
+const CoinErrorMolecule = ({ onReload }) => {
   return (
     <Box
       display={"flex"}
@@ -14,6 +15,7 @@ const CoinErrorMolecule = () => {
         background: "white"
       }}
     >
+      <Button onClick={() => onReload()}>Reload but</Button>
       <TyprographyAtom>Network Error</TyprographyAtom>
     </Box>
   );

@@ -11,20 +11,11 @@ const CardTrends = ({ trending, heading }) => {
       sx={{
         width: "500px",
         height: "400px",
-        background: "white",
-        overflow: "auto",
-        border: "none",
-        boxShadow: "none",
-        padding: "10px",
-        borderRadius: "10px",
         "&::-webkit-scrollbar": {
           display: "none"
-        },
-        msoverflowstyle: "none",
-        scrollbarwidth: "none"
+        }
       }}
     >
-      
       <TyprographyAtom>{heading}</TyprographyAtom>
 
       <Box sx={{ padding: 0, margin: 0 }}>

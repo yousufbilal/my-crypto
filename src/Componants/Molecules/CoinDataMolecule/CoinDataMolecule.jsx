@@ -9,10 +9,9 @@ const CoinDataMolecule = ({ nfts, categories, cryptoCoins }) => {
   return (
     <Box
       display="flex"
+      justifyContent={"space-between"}
       flexDirection="row"
-      border="1px solid red"
-      padding="50px"
-      background="red"
+      border="1px solid #E0E0E0"
     >
       <CardTrends trending={cryptoCoins} heading="Trending Coins" />
       <CardTrends trending={nfts} heading="Trending NFTs" />

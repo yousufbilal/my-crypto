@@ -16,15 +16,15 @@ const TrendingContainer = ({
   cryptoCoins,
   trendingData,
   trendingError,
-  trendingLoading
+  trendingLoading,
+  onReload
 }) => {
-  console.log(trendingError);
   if (trendingLoading) {
     return <CoinLoadingMolecule />;
   }
 
   if (trendingError) {
-    return <CoinErrorMolecule />;
+    return <CoinErrorMolecule onReload={onReload} />;
   }
 
   if (Object.keys(trendingData).length) {
