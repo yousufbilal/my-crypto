@@ -29,6 +29,7 @@ const TrendingContainer = ({
 
   if (Object.keys(trendingData).length) {
     return (
+      
       <CoinDataMolecule
         nfts={nfts}
         categories={categories}

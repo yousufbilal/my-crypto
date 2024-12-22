@@ -44,26 +44,25 @@ function App() {
   }, [auth]);
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Box display="flex" flexDirection="column" height="100vh">
-        <Header />
-        <Box display="flex" flexGrow={1}>
-          <SideBar />
-          {/* Routes  */}
-          <Box className="content" flexGrow={1}>
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route element={<ProtectedRoute user={user} />}>
-                <Route path="/home" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/favpage" element={<FavPage />} />
-              </Route>
-            </Routes>
-          </Box>
+
+    <Box display="flex" flexDirection="column" height="100vh">
+      <Header />
+      <Box display="flex" flexGrow={1}>
+        <SideBar />
+        {/* Routes  */}
+        <Box className="content" flexGrow={1}>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route element={<ProtectedRoute user={user} />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/favpage" element={<FavPage />} />
+            </Route>
+          </Routes>
         </Box>
       </Box>
-    </ThemeProvider>
+    </Box>
+
   );
 }
 

@@ -9,8 +9,14 @@ import Star from "@mui/icons-material/Star";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Checkbox from "@mui/material/Checkbox";
 import { useTranslation } from "react-i18next";
+import { borderRadius } from "@mui/system";
 
-const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
+const MoleculeTable = ({
+  currentList,
+  handleReturn,
+  favSelect,
+  coinCategoriesData
+}) => {
   const { t, i18n } = useTranslation("common");
 
   return (
@@ -19,8 +25,10 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
       style={{
         border: "1px solid #ddd",
         borderSpacing: "0",
-        tableLayout: "fixed"
+        tableLayout: "fixed",
+        marginTop:40
       }}
+
     >
       <TableHead>
         <TableCell>{t("image")}</TableCell>
@@ -77,7 +85,6 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
             <TableCell style={{ padding: "0", fontSize: "15px" }}>
               {coin.last_updated}
             </TableCell>
-            
           </TableRow>
         ))}
       </TableBody>

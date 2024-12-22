@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ButtonAtom from "../../Atoms/ButtonAtom/ButtonAtom";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 import ImageAtom from "../../Atoms/ImageAtom/ImageAtom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,18 +17,30 @@ const Header = () => {
     navigate("/FavPage");
   };
 
+  function twoSum(nums, target) {
+    const map = new Map(); // To store the number and its index
+    for (let i = 0; i < nums.length; i++) {
+      const complement = target - nums[i]; // Find the complement
+
+      if (map.has(complement)) {
+        return [map.get(complement), i]; // Return the indices of the complement and current number
+      }
+      map.set(nums[i], i); // Store the current number and its index
+    }
+  }
+
+  twoSum([5, 4, 6], 10);
+
   return (
     <Box
       sx={{
-        width: "100%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         padding: 5,
-        boxSizing: "border-box",
         background: "#FFFFFF",
-        height: "60px",
+        height: "20px",
         zIndex: "10",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
       }}
@@ -40,29 +53,12 @@ const Header = () => {
         />
       </Box>
 
-      <Box>
-        <SearchBar />
-      </Box>
+      <SearchBar />
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column"
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "end",
-            flexDirection: "column"
-          }}
-        >
-          <Box>
-            <GoogleLogout />
-          </Box>
-          <ButtonAtom test={favButtonHandler}>Go to Favorites</ButtonAtom>
-        </Box>
+      <Box>
+        <GoogleLogout />
+        {/* <ButtonAtom test={favButtonHandler}>Go to Favorites</ButtonAtom> */}
+        <AccountCircleIcon />
       </Box>
     </Box>
   );

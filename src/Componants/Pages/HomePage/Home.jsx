@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCoinTrending } from "../../../Store/Features/coinTrendingSlice/coinTrendingSlice";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import { LocalStorageFunc } from "../../Utilities/LocalStorageFunc/LocalStorageFunc";
 import { addCoinList } from "../../../Store/Features/coinListSlice/coinListSlice";
 import { addCoinStatusUpdate } from "../../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
 
@@ -16,13 +15,15 @@ export const Home = () => {
   const [coinList, setCoinList] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const { coinHistoricPrice } = useSelector((state) => state.historicPrice);
-  const storedCategories = localStorage.getItem("user");
-  const localCategories = JSON.parse(storedCategories);
+
   const dispatch = useDispatch();
 
   const { trendingData, trendingError, trendingLoading } = useSelector(
     (state) => state.coinTrending
   );
+
+  const { coinCategoriesLoading, coinCategoriesData, coinCategoriesError } =
+    useSelector((state) => state.coinList);
 
   let coins = trendingData.coins;
   let nfts = trendingData.nfts;
@@ -38,7 +39,7 @@ export const Home = () => {
 
   //here im populating the data from the api into the redux state
   const populateTrendingData = () => {
-    console.log("Test button reload");
+    // console.log("Test button reload");
     dispatch(addCoinTrending());
   };
 
@@ -58,25 +59,43 @@ export const Home = () => {
     }
   };
 
+  const reloadCategories = () => {
+    dispatch(addCoinList());
+  };
+
   useEffect(() => {
-    const storedList = localCategories;
-    if (storedList) {
-      dispatch(addCoinList());
-    }
-    const tempCurrentList = JSON.parse(JSON.stringify(localCategories)); //deep copying to not modify the orignal array
-    setCoinList(tempCurrentList);
-    setCurrentList(tempCurrentList.slice(0, 5));
-  }, []); //include a dependacy
+    paginationClick(1);
+  }, []);
 
   const paginationClick = (page) => {
-    let currentTempList = JSON.parse(JSON.stringify(coinList)); //deep copying to not modify the orignal array
-    const nextListIndex = page == 1 ? 0 : (page - 1) * 5;
-    const tempCurrentList = currentTempList.splice(nextListIndex, 5); //this line
+    const startIndex = (page - 1) * 5; // Calculate start index
+    const endIndex = startIndex + 5; // Calculate end index
+    // const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
+    const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
+
     setCurrentList(tempCurrentList);
   };
 
+  let twoSum = (nums, target) => {
+    const map = new Map();
+
+    for (let i = 0; i < nums.length; i++) {
+      let complement = target - nums[i];
+
+      if (map.has(complement)) {
+        return console.log(map.get(complement, i));
+      }
+
+      map.set(nums[i], i);
+    }
+  };
+
+  twoSum([4, 5, 6], 10);
+
+  //map does not have 6 intailly so we give map [0,6] then on the secodn one [1,5] 3rd time is [2,6]
+
   return (
-    <Box display={"flex"} flexDirection={"column"} padding={"20px"}>
+    <Box display={"flex"} flexDirection={"column"} padding={3}>
       <TrendingContainer
         nfts={nfts}
         categories={categories}
@@ -88,10 +107,14 @@ export const Home = () => {
       />
 
       <CoinDataTable
+        coinCategoriesLoading={coinCategoriesLoading}
+        coinCategoriesData={coinCategoriesData}
+        coinCategoriesError={coinCategoriesError}
         currentList={currentList}
         handleReturn={handleReturn}
         favSelect={favSelect}
         paginationClick={paginationClick}
+        reloadCategories={reloadCategories}
       />
     </Box>
   );

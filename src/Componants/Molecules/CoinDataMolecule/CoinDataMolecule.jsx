@@ -11,7 +11,11 @@ const CoinDataMolecule = ({ nfts, categories, cryptoCoins }) => {
       display="flex"
       justifyContent={"space-between"}
       flexDirection="row"
-      border="1px solid #E0E0E0"
+      padding={4}
+      borderRadius={5}
+      bgcolor={"#F2F2F2"}
+
+
     >
       <CardTrends trending={cryptoCoins} heading="Trending Coins" />
       <CardTrends trending={nfts} heading="Trending NFTs" />

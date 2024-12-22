@@ -36,5 +36,5 @@ root.render(
         </StyledEngineProvider>
       </Provider>
     </React.StrictMode>
-  </I18nextProvider>,
+  </I18nextProvider>
 );

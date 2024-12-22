@@ -6,8 +6,7 @@ export const addCoinTrending = createAsyncThunk(
     'coinTrending/addCoinTrending',
     async () => {
         try {
-            await new Promise((resolve) => setTimeout(resolve,1000));
-            const response = await coinGecko.get('search/trendingss');
+            const response = await coinGecko.get('search/trending');
             return response.data;
         } catch (error) {
             throw error;
