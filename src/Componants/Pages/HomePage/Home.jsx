@@ -39,7 +39,6 @@ export const Home = () => {
 
   //here im populating the data from the api into the redux state
   const populateTrendingData = () => {
-    // console.log("Test button reload");
     dispatch(addCoinTrending());
   };
 
@@ -72,27 +71,37 @@ export const Home = () => {
     const endIndex = startIndex + 5; // Calculate end index
     // const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
     const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
-
     setCurrentList(tempCurrentList);
   };
 
-  let twoSum = (nums, target) => {
-    const map = new Map();
+  // let twoSum = (nums, target) => {
+  //   const map = new Map();
 
-    for (let i = 0; i < nums.length; i++) {
-      let complement = target - nums[i];
+  //   for (let i = 0; i < nums.length; i++) {
+  //     let complement = target - nums[i];
 
-      if (map.has(complement)) {
-        return console.log(map.get(complement, i));
-      }
+  //     if (map.has(complement)){
+  //       map.get(complement, i)
+  //     }
 
-      map.set(nums[i], i);
-    }
-  };
+  //     map.set(nums[i], i);
+  //   }
+  // };
 
-  twoSum([4, 5, 6], 10);
-
+  // twoSum([4, 5, 6], 10);
   //map does not have 6 intailly so we give map [0,6] then on the secodn one [1,5] 3rd time is [2,6]
+
+  // var numIdenticalPairs = function (nums) {
+  //   for (let i = 0; i < nums.length; i++) {
+  //     for (let j = i + 1; j < nums.length; j++) {
+  //       if (nums[i] == nums[j]) {
+  //         console.log(nums[i], nums[j]);
+  //       }
+  //     }
+  //   }
+  // };
+
+  // numIdenticalPairs([1, 2, 3, 1, 1, 3]);
 
   return (
     <Box display={"flex"} flexDirection={"column"} padding={3}>
@@ -119,5 +128,3 @@ export const Home = () => {
     </Box>
   );
 };
-
-//

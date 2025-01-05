@@ -1,35 +1,85 @@
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  Menu,
+  Select,
+  Tooltip,
+  Typography
+} from "@mui/material";
 import BitcoinLogo from "../../../Assests/BitcoinLogo.svg";
 import SearchBar from "../../Molecules/SearchBar/SearchBar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import GoogleLogout from "../../Molecules/GoogleLogout/GoogleLogout";
 import { useNavigate } from "react-router-dom";
 import ButtonAtom from "../../Atoms/ButtonAtom/ButtonAtom";
 import TyprographyAtom from "../../Atoms/TyprographyAtom/TyprographyAtom";
 import ImageAtom from "../../Atoms/ImageAtom/ImageAtom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { StarBorder } from "@mui/icons-material";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  addDoc,
+  firestore
+} from "firebase/firestore";
+import { db } from "../../.././fireBaseDataBase";
+import { get } from "mongoose";
+
+import PortfolioDropDown from "../../Atoms/PortfolioDropDown/PortfolioDropDown";
 
 const Header = () => {
+  const [doclistTest, setDocListTest] = useState(false);
+  const [collectionListTest, setCollectionListTest] = useState();
+
   const navigate = useNavigate();
 
   const favButtonHandler = () => {
-    console.log("test fav button");
     navigate("/FavPage");
   };
 
-  function twoSum(nums, target) {
-    const map = new Map(); // To store the number and its index
-    for (let i = 0; i < nums.length; i++) {
-      const complement = target - nums[i]; // Find the complement
-
-      if (map.has(complement)) {
-        return [map.get(complement), i]; // Return the indices of the complement and current number
-      }
-      map.set(nums[i], i); // Store the current number and its index
+  //   async getMarker() {
+  //     const snapshot = await firebase.firestore().collection('events').get()
+  //     return snapshot.docs.map(doc => doc.data());
+  // }
+  const collectionListHandler = () => {
+    if (doclistTest === false) {
+      setDocListTest(true);
+    } else if (doclistTest === true) {
+      setDocListTest(false);
     }
-  }
+    console.log(doclistTest);
+  };
 
-  twoSum([5, 4, 6], 10);
+  const collectionList = async () => {
+    let testArray = [];
+    const snapshot = collection(db, "Users-Collection");
+    const querySnapshot = await getDocs(snapshot);
+    let collectionListState = querySnapshot?.forEach((doc) => {
+      testArray.push(doc.id);
+    });
+    setCollectionListTest(testArray);
+
+    // return (
+    //   <Box>
+    //     {testArray.map((value) => {
+    //       <ListItem>
+    //         <Box>{value}</Box>
+    //       </ListItem>;
+    //     })}
+    //   </Box>
+    // );
+  };
+
+  useEffect(() => {
+    collectionList();
+  }, []);
 
   return (
     <Box
@@ -52,13 +102,14 @@ const Header = () => {
           style={{ height: "100%", width: "50px" }}
         />
       </Box>
-
       <SearchBar />
-
       <Box>
         <GoogleLogout />
-        {/* <ButtonAtom test={favButtonHandler}>Go to Favorites</ButtonAtom> */}
-        <AccountCircleIcon />
+
+        <Button onClick={collectionListHandler}> collectionListHandler </Button>
+        {doclistTest && collectionList()}
+
+        <PortfolioDropDown collectionListTest={collectionListTest} />
       </Box>
     </Box>
   );

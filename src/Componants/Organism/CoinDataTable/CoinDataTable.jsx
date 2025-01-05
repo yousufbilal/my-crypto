@@ -28,7 +28,7 @@ const CoinDataTable = ({
     );
   }
 
-  if (coinCategoriesData.length >= 0) {
+  if (coinCategoriesData?.length >= 0) {
     return (
       <>
         <MoleculeTable
