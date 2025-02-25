@@ -27,7 +27,8 @@ import {
   setDoc,
   updateDoc,
   addDoc,
-  firestore
+  firestore,
+  onSnapshot
 } from "firebase/firestore";
 import { db } from "../../.././fireBaseDataBase";
 import { get } from "mongoose";
@@ -44,10 +45,6 @@ const Header = () => {
     navigate("/FavPage");
   };
 
-  //   async getMarker() {
-  //     const snapshot = await firebase.firestore().collection('events').get()
-  //     return snapshot.docs.map(doc => doc.data());
-  // }
   const collectionListHandler = () => {
     if (doclistTest === false) {
       setDocListTest(true);
@@ -58,23 +55,14 @@ const Header = () => {
   };
 
   const collectionList = async () => {
-    let testArray = [];
-    const snapshot = collection(db, "Users-Collection");
-    const querySnapshot = await getDocs(snapshot);
-    let collectionListState = querySnapshot?.forEach((doc) => {
-      testArray.push(doc.id);
+    const collectionArray = [];
+    const getRef = collection(db, "Users-Collection");
+    onSnapshot(getRef, (snapshot) => {
+      snapshot.forEach((doc) => {
+        collectionArray.push(doc.id);
+      });
+      setCollectionListTest(collectionArray);
     });
-    setCollectionListTest(testArray);
-
-    // return (
-    //   <Box>
-    //     {testArray.map((value) => {
-    //       <ListItem>
-    //         <Box>{value}</Box>
-    //       </ListItem>;
-    //     })}
-    //   </Box>
-    // );
   };
 
   useEffect(() => {
@@ -106,8 +94,8 @@ const Header = () => {
       <Box>
         <GoogleLogout />
 
-        <Button onClick={collectionListHandler}> collectionListHandler </Button>
-        {doclistTest && collectionList()}
+        {/* <Button onClick={collectionListHandler}> collectionListHandler </Button> */}
+        {/* {doclistTest && collectionList()} */}
 
         <PortfolioDropDown collectionListTest={collectionListTest} />
       </Box>

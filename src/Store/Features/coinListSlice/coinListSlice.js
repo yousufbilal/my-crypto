@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import coinGecko from "../../../https/Clients/coinGecko";
 
-
 export const addCoinList = createAsyncThunk(
   'coinList/addCoinList',
   async () => {
@@ -43,9 +42,7 @@ const coinListSlice = createSlice({
         state.coinCategoriesLoading = false;
         state.coinCategoriesError = true
         state.coinErrorMessage = action.error.message
-
-
-      })
+    })
   }
 })
 

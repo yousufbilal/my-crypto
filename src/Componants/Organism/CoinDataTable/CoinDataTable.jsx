@@ -37,9 +37,9 @@ const CoinDataTable = ({
           handleReturn={handleReturn}
           favSelect={favSelect}
         />
-        <Box display="flex" justifyContent="center" marginTop={2}>
+        {/* <Box display="flex" justifyContent="center" marginTop={2}>
           <PaginationAtom paginationClick={paginationClick} />
-        </Box>
+        </Box> */}
       </>
     );
   }
@@ -63,20 +63,13 @@ const CoinDataTable = ({
       </Box>
     );
   }
-
-  return (
-    <>
-      {/* <MoleculeTable
-        currentList={currentList}
-        handleReturn={handleReturn}
-        favSelect={favSelect}
-      /> */}
-
-      {/* <Box display="flex" justifyContent="center" marginTop={2}>
-        <PaginationAtom paginationClick={paginationClick} />
-      </Box> */}
-    </>
-  );
 };
 
 export default CoinDataTable;
+
+  // const paginationClick = (page) => {
+  //   const startIndex = (page - 1) * 5; // Calculate start index
+  //   const endIndex = startIndex + 5; // Calculate end index
+  //   const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
+  //   setCurrentList(tempCurrentList);
+  // };

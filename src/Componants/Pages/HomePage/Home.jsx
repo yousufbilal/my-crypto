@@ -8,6 +8,7 @@ import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { addCoinList } from "../../../Store/Features/coinListSlice/coinListSlice";
 import { addCoinStatusUpdate } from "../../../Store/Features/coinStatusUpdateSlice/coinStatusUpdateSlice";
+import { all } from "axios";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const Home = () => {
   );
 
   const { coinCategoriesLoading, coinCategoriesData, coinCategoriesError } =
+
     useSelector((state) => state.coinList);
 
   let coins = trendingData.coins;
@@ -62,46 +64,26 @@ export const Home = () => {
     dispatch(addCoinList());
   };
 
-  useEffect(() => {
-    paginationClick(1);
-  }, []);
+  // useEffect(() => {
+  //   paginationClick(1);
+  // }, []);
 
-  const paginationClick = (page) => {
-    const startIndex = (page - 1) * 5; // Calculate start index
-    const endIndex = startIndex + 5; // Calculate end index
-    // const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
-    const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
-    setCurrentList(tempCurrentList);
-  };
+  // const paginationClick = (page) => {
+  //   const startIndex = (page - 1) * 5; // Calculate start index
+  //   const endIndex = startIndex + 5; // Calculate end index
+  //   const tempCurrentList = coinCategoriesData?.slice(startIndex, endIndex);
+  //   setCurrentList(tempCurrentList);
+  // };
 
-  // let twoSum = (nums, target) => {
-  //   const map = new Map();
-
+  // var subsetXORSum = function (nums) {
   //   for (let i = 0; i < nums.length; i++) {
-  //     let complement = target - nums[i];
-
-  //     if (map.has(complement)){
-  //       map.get(complement, i)
-  //     }
-
-  //     map.set(nums[i], i);
+  //     let binaryValue = nums[i].toString(2);
+  //     console.log(binaryValue);
   //   }
   // };
 
-  // twoSum([4, 5, 6], 10);
-  //map does not have 6 intailly so we give map [0,6] then on the secodn one [1,5] 3rd time is [2,6]
-
-  // var numIdenticalPairs = function (nums) {
-  //   for (let i = 0; i < nums.length; i++) {
-  //     for (let j = i + 1; j < nums.length; j++) {
-  //       if (nums[i] == nums[j]) {
-  //         console.log(nums[i], nums[j]);
-  //       }
-  //     }
-  //   }
-  // };
-
-  // numIdenticalPairs([1, 2, 3, 1, 1, 3]);
+  // let nums = [1, 3];
+  // subsetXORSum(nums);
 
   return (
     <Box display={"flex"} flexDirection={"column"} padding={3}>
@@ -122,7 +104,6 @@ export const Home = () => {
         currentList={currentList}
         handleReturn={handleReturn}
         favSelect={favSelect}
-        paginationClick={paginationClick}
         reloadCategories={reloadCategories}
       />
     </Box>

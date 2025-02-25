@@ -20,6 +20,8 @@ import {
 } from "firebase/auth";
 import { current } from "@reduxjs/toolkit";
 import ProtectedRoute from "./Componants/Molecules/ProtectedRoute/ProtectedRoute";
+import { getTodoItems } from "./Store/Features/MongoDB/server";
+import { postTodoItems } from "./Store/Features/MongoDB/server";
 
 const darkTheme = createTheme({
   palette: {
@@ -35,6 +37,11 @@ function App() {
   const [test, setTest] = useState(null)
 
   useEffect(() => {
+    getTodoItems();
+    // postTodoItems()
+  }, []);
+
+  useEffect(() => {
     sessionStorage.clear();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -42,6 +49,8 @@ function App() {
     });
     return () => unsubscribe();
   }, [auth]);
+
+
 
   return (
 

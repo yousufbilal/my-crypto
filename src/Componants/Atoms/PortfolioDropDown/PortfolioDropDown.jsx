@@ -17,14 +17,13 @@ const PortfolioDropDown = ({ collectionListTest }) => {
 
   return (
     <>
-      <FormControl fullWidth>
-        <InputLabel>Portfolio</InputLabel>
-        <Select value={test} label="Age" onChange={handleDropDown}>
-          {collectionListTest?.map((value, index) => {
-            return <MenuItem value={value}>{value}</MenuItem>;
-          })}
-        </Select>
-      </FormControl>
+      <Select value={test} label="Portfolio" onChange={handleDropDown}>
+        {collectionListTest?.map((value, index) => (
+          <MenuItem key={index} value={value}>
+            {value}
+          </MenuItem>
+        ))}
+      </Select>
     </>
   );
 };

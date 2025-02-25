@@ -29,48 +29,70 @@ import {
   addDoc,
   deleteDoc,
   snapshotEqual,
-  arrayUnion
+  arrayUnion,
+  onSnapshot
 } from "firebase/firestore";
 import { db } from "../../../fireBaseDataBase";
 
-const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
+const MoleculeTable = ({
+  currentList,
+  handleReturn,
+  favSelect,
+  coinCategoriesData
+}) => {
   const { t, i18n } = useTranslation("common");
-
   const [collectionList, setCollectionList] = useState(null);
   const [selectedCoinID, setSelectedCoinID] = useState(null);
   const [selectedCoinData, setSelectedCoinData] = useState(null);
   const [userInputPortfolio, setUserInputPortfolio] = useState(null);
+  const [portfolioButton, setPortfolioButton] = useState(false);
 
   const getCollectionList = async () => {
-    let collectionArray = [];
-
     const getRef = collection(db, "Users-Collection");
-    const snapShot = await getDocs(getRef);
-    let snapShotResult = snapShot.forEach((value) => {
-      collectionArray.push(value.id);
+    onSnapshot(getRef, (snapShot) => {
+      const collectionArray = [];
+      snapShot.forEach((doc) => {
+        collectionArray.push(doc.id);
+      });
+      setCollectionList(collectionArray);
     });
-    setCollectionList(collectionArray);
   };
 
   const collectionListHandler = async (item) => {
+    console.log("Selected Coin Data:", selectedCoinData);  // Log the selected coin data
+    console.log("Selected Portfolio Item:", item);  // Log the portfolio item clicked
+    
     const docRef = doc(db, "Users-Collection", item);
-
     await updateDoc(docRef, {
       coins: arrayUnion(selectedCoinData)
     });
   };
 
-  const handleNewProtfolio = async () => {
-    console.log(userInputPortfolio);
-    const docRef = doc(db, "Users-Collection", userInputPortfolio);
-    await setDoc(docRef, {});
+  //adding stuff into firebase
+  const handleNewProtfolio = async (value) => {
+    // console.log(value);
+    // const docRef = doc(db, "Users-Collection", userInputPortfolio);
+    // await setDoc(docRef, {});
   };
+
+  //adding stuff into firebase
+  const protfolioHandler = () => {
+    if (portfolioButton === true) {
+      setPortfolioButton(false);
+    } else if (portfolioButton) {
+      setPortfolioButton(true);
+    }
+  };
+
+  useEffect(() => {
+    getCollectionList();
+  }, [portfolioButton]);
 
   useEffect(() => {
     getCollectionList();
   }, []);
 
-  const testFunc = () => {
+  const portfolioList = () => {
     return (
       <List
         sx={{
@@ -105,11 +127,19 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
           </ListItem>
         ))}
         <input
+          value={userInputPortfolio}
           onChange={(e) => setUserInputPortfolio(e.target.value)}
           type="text"
           placeholder="add new portfolio name"
         />
-        <Button onClick={handleNewProtfolio}>portfolio</Button>
+
+        {/* <Button
+          onClick={() => {
+            // handleNewProtfolio();
+            protfolioHandler();
+          }}>
+          Portfolio
+        </Button> */}
       </List>
     );
   };
@@ -146,7 +176,7 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
       </TableHead>
 
       <TableBody>
-        {currentList?.map((coin) => (
+        {coinCategoriesData?.map((coin) => (
           <TableRow key={coin.id} onClick={() => handleReturn(coin)}>
             <TableCell onClick={(event) => event.stopPropagation()}>
               <Checkbox
@@ -156,7 +186,7 @@ const MoleculeTable = ({ currentList, handleReturn, favSelect }) => {
                 icon={<StarBorder />}
                 checkedIcon={<Star />}
               />
-              {selectedCoinID === coin.id && testFunc()}
+              {selectedCoinID === coin.id && portfolioList()}
             </TableCell>
 
             <TableCell style={{ padding: "0", overflow: "hidden" }}>
